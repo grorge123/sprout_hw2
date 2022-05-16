@@ -1,5 +1,3 @@
-// TODO: don't let two players bump into each other.
-// TODO: segmentation fault but I don't know why. (maybe about asteroid)
 // TODO: add asteroid
 // TODO: add obstacle
 
@@ -12,14 +10,14 @@
 *
 */
 #include <stdlib.h> //Standard c and c++ libraries
-#include <stdio.h>
+//#include <stdio.h>
 #include <list>
 #include <string>
 #include <iostream>
 #include <thread> // for sleep
 #include <chrono> // for sleep
-#include <fcntl.h>
-#include <curses.h>
+//#include <fcntl.h>
+//#include <curses.h>
 
 using namespace std;
 #define UP    72 // arrow keys' ascii numbers
@@ -204,7 +202,7 @@ class SpaceShip{
         else{
             Draw();
             printframe();
-            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+            std::this_thread::sleep_for(std::chrono::milliseconds(500));
         }
     }
     
@@ -274,7 +272,7 @@ class Asteroid{
     void Collision(SpaceShip &ss){ // The asteroid finds the spaceship
         if( (x >= ss.X()) && (x <= ss.X() + 5) && (y >= ss.Y()) && (y <= ss.Y() + 2) ){ // Depending on the shape of the spaceship you have to tinker when the asteroid really hits you
             ss.Damage(1); // The asteroid hurts
-            printf("%d hit by asteroid at %d %d", ss.NO(), x, y);
+            // cout << ss.NO() << " hit by asteroid at " << x << " " << y;
             frame[x][y] = ' '; // And the asteroid is "destroyed"
             x = rand()%74 + 3; // The truth is it just teleports to the top of the map
             y = 4;
@@ -354,6 +352,29 @@ char HowToMove(SpaceShip ss, list<Asteroid*> Asteroid, list<Bullet*>){
     if (temp == 3) return 'w';
     if (temp == 4) return 'x';
     return 'x';
+}
+
+bool touch(int xa, int ya, int xb, int yb, int xm, int ym, int xn, int yn){
+    // check if the rectangle defined by (xa, ya) and (xb, yb) and the rectangle (xm, ym) and (xn, yn) touches each other.
+    for (int x=xa ; x<=xb ; x++){
+        for (int y=ya ; y<=yb ; y++){
+            if ((x >= xm) and (x <= xn) and (y >= ym) and (y <= yn)) return true;
+        }
+    }
+    return false;
+}
+
+bool crash(SpaceShip ss1, SpaceShip ss2, char direction){
+    if (direction == 'a'){ // ss1 go left
+        if (touch(ss1.X()-1, ss1.Y(), ss1.X()+3, ss1.Y()+2, ss2.X(), ss2.Y(), ss2.X()+4, ss2.Y()+2) == true) return true;
+    }else if (direction == 'd'){ // ss1 go right
+        if (touch(ss1.X()+1, ss1.Y(), ss1.X()+5, ss1.Y()+2, ss2.X(), ss2.Y(), ss2.X()+4, ss2.Y()+2) == true) return true;
+    }else if (direction == 'w'){ // ss1 go up
+        if (touch(ss1.X(), ss1.Y()-1, ss1.X()+4, ss1.Y()+1, ss2.X(), ss2.Y(), ss2.X()+4, ss2.Y()+2) == true) return true;
+    }else if (direction == 's'){ // ss1 go down
+        if (touch(ss1.X(), ss1.Y()+1, ss1.X()+4, ss1.Y()+3, ss2.X(), ss2.Y(), ss2.X()+4, ss2.Y()+2) == true) return true;
+    }
+    return false;
 }
 
 int main(){
@@ -439,10 +460,10 @@ int main(){
             }
         }
         
-        key = HowToMove(ss1, Asteroids, Bullets);
-        ss1.Move(key);
-        key = HowToMove(ss2, Asteroids, Bullets);
-        ss2.Move(key);
+        char direction1 = HowToMove(ss1, Asteroids, Bullets);
+        if (crash(ss1, ss2, direction1) == false) ss1.Move(direction1);
+        char direction2 = HowToMove(ss2, Asteroids, Bullets);
+        if (crash(ss2, ss1, direction2) == false) ss2.Move(direction2);
         printframe();
         std::this_thread::sleep_for(std::chrono::milliseconds(100)); // This is essential, otherwise the game would be unplayable
     }
