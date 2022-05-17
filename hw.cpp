@@ -1,3 +1,4 @@
+// TODO: better timing
 // TODO: add asteroid
 // TODO: add obstacle
 
@@ -10,14 +11,12 @@
 *
 */
 #include <stdlib.h> //Standard c and c++ libraries
-//#include <stdio.h>
 #include <list>
+#include <vector>
 #include <string>
 #include <iostream>
 #include <thread> // for sleep
 #include <chrono> // for sleep
-//#include <fcntl.h>
-//#include <curses.h>
 
 using namespace std;
 #define UP    72 // arrow keys' ascii numbers
@@ -221,7 +220,7 @@ class SpaceShip{
         imDead = true;
     }
     
-    bool WillCrash(SpaceShip ss, char direction){
+    bool CrashWithOpponent(SpaceShip ss, char direction){
         if (direction == 'a'){ // ss1 go left
             if ((x-1 == ss.X()+4) and (y <= ss.Y()+2) and (y+2 >= ss.Y())) return true;
         }else if (direction == 'd'){ // ss1 go right
@@ -259,6 +258,14 @@ class SpaceShip{
     void shootbullet(){
         cd = cd - 3;
     }
+    
+    void AddExp(int addexp){
+        exp += addexp;
+        while (exp >= 100){
+            exp -= 100;
+            power += 1;
+        }
+    }
 };
 
 class Asteroid{
@@ -282,7 +289,7 @@ class Asteroid{
             frame[x][y] = '_'; // It disappears
             return true; // And informs the ame that it should no longer exist :c
         }
-        if ((x <= 1) or (x >= 78)){
+        if ((x <= 1) or (x >= 79)){
             frame[x][y] = '|';
             return true;
         }
@@ -295,16 +302,16 @@ class Asteroid{
         if (direction == 'd') x ++;
         if (direction == 'w') y --;
         if (direction == 's') y ++;
-        frame[x][y] = '*'; // The shape of the asteroid
+        frame[x][y] = 'o'; // The shape of the asteroid
     }
     
-    bool Collision(SpaceShip &ss){ // The bullet finds the spaceship
-        if( (x >= ss.X()) && (x <= ss.X() + 5) && (y >= ss.Y()) && (y <= ss.Y() + 2) ){ // Depending on the shape of the spaceship you have to tinker when the bullet really hits you
-            ss.Damage(1); // The bullet hurts
+    bool Collision(SpaceShip *ss){ // The bullet finds the spaceship
+        if( (x >= ss->X()) && (x <= ss->X() + 5) && (y >= ss->Y()) && (y <= ss->Y() + 2) ){ // Depending on the shape of the spaceship you have to tinker when the bullet really hits you
+            ss->Damage(5); // The bullet hurts
             //printf("%d hit by asteroid at %d %d", ss.NO(), x, y);
             frame[x][y] = 'X';
             printframe();
-            std::this_thread::sleep_for(std::chrono::milliseconds(500));
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
             frame[x][y] = ' '; // And the asteroid is "destroyed"
             return true;
         }
@@ -352,13 +359,13 @@ class Bullet{
         frame[x][y] = '.'; // The shape of the bullet
     }
     
-    bool Collision(SpaceShip &ss){ // The bullet finds the spaceship
-        if( (x >= ss.X()) && (x <= ss.X() + 5) && (y >= ss.Y()) && (y <= ss.Y() + 2) && (no != ss.NO()) ){ // Depending on the shape of the spaceship you have to tinker when the bullet really hits you
-            ss.Damage(power); // The bullet hurts
+    bool Collision(SpaceShip *ss){ // The bullet finds the spaceship
+        if( (x >= ss->X()) && (x <= ss->X() + 5) && (y >= ss->Y()) && (y <= ss->Y() + 2) && (no != ss->NO()) ){ // Depending on the shape of the spaceship you have to tinker when the bullet really hits you
+            ss->Damage(power); // The bullet hurts
             //printf("%d hit by asteroid at %d %d", ss.NO(), x, y);
             frame[x][y] = 'X';
             printframe();
-            std::this_thread::sleep_for(std::chrono::milliseconds(300));
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
             frame[x][y] = ' '; // And the asteroid is "destroyed"
             return true;
         }
@@ -391,6 +398,83 @@ bool touch(int xa, int ya, int xb, int yb, int xm, int ym, int xn, int yn){
     return false;
 }
 
+void GenerateAsteroid(list <Asteroid*> *Asteroids, int tick){
+    if (tick == 0) return;
+    int temp, probability_inverse = 100000/tick; // probability = (float) (tick) / 100000
+    for (int i=3 ; i<=21 ; i++){
+        temp = rand() % probability_inverse;
+        if (temp == 0) Asteroids -> push_back(new Asteroid(2, i, 'd'));
+        temp = rand() % probability_inverse;
+        if (temp == 0) Asteroids -> push_back(new Asteroid(78, i, 'a'));
+    }
+    for (int i=2 ; i<=78 ; i++){
+        temp = rand() % probability_inverse;
+        if (temp == 0) Asteroids -> push_back(new Asteroid(i, 3, 's'));
+        temp = rand() % probability_inverse;
+        if (temp == 0) Asteroids -> push_back(new Asteroid(i, 21, 'w'));
+    }
+    return;
+}
+
+template <typename T>
+void Move(T *Things){
+    typename T::iterator thing;
+    for(thing = Things->begin() ; thing != Things->end() ; thing++){
+        (*thing)->Move();
+        if ( (*thing)->isOut() ){ // If the bullet reaches the end of the map or hit a player
+            delete(*thing);
+            thing = Things -> erase(thing);
+        }
+    }
+    return;
+}
+
+template <typename T>
+void CollisionWithSpaceship(T *Things, SpaceShip *ss){
+    typename T::iterator thing;
+    for(thing = Things->begin() ; thing != Things->end() ; thing++){
+        if ( (*thing)->Collision(ss) ){ // If the bullet reaches the end of the map or hit a player
+            delete(*thing);
+            thing = Things -> erase(thing);
+        }
+    }
+    return;
+}
+
+vector <int> AddExperience(list <Asteroid *> *Asteroids, list <Bullet *> *Bullets){
+    vector <int> answer(2, 0);
+    cout << "start" << endl;
+    bool jumpout = false;
+    for(list <Asteroid *>::iterator asteroid = Asteroids->begin(); asteroid != Asteroids->end(); asteroid++){
+        if (jumpout == true) break;
+        for(list <Bullet *>::iterator bullet = Bullets->begin(); bullet != Bullets->end(); bullet++){ // asteroid-bullet collision
+            int astX = (*asteroid)->X(); //Coordinates of the asteroid
+            int astY = (*asteroid)->Y();
+            int bulX = (*bullet)->X(); // Coordinates of the bullet
+            int bulY = (*bullet)->Y();
+            if((astX == bulX) && (astY == bulY)){ //Chances are that in the Y axis they never reach the same value, that case must be considered
+                frame[bulX][bulY] = ' '; // Makes the bullet invisible
+                frame[astX][astY] = 'X';
+                printframe();
+                std::this_thread::sleep_for(std::chrono::milliseconds(100));
+                frame[astX][astY] = ' '; // I still have my doubts in this part, but it tries to signal a collision, sometimes the X remains theme...
+                answer.at((*bullet)->NO()-1) += 20;
+                delete(*bullet); // You delete the bullet
+                bullet = Bullets -> erase(bullet);
+                if (bullet == Bullets->end()) break;
+                delete(*asteroid);// And the asteroid
+                asteroid = Asteroids -> erase(asteroid);
+                if (asteroid == Asteroids->end()){
+                    jumpout = true;
+                    break;
+                }
+            }
+        }
+    }
+    cout << "end" << endl;
+    return answer;
+}
+
 int main(){
     srand(time(NULL));
     system("clear");
@@ -409,14 +493,13 @@ int main(){
     list<Asteroid*> Asteroids; // The same goes for the asteroids
     list<Asteroid*>::iterator asteroid;
     
-    //for(int i = 0; i < 10; i++) Asteroids.push_back(new Asteroid(rand()%78 + 1, rand()%4 + 3)); // Pick as many asteroids as you want. They are randomly placed in the map but not too low
-
     SpaceShip ss1 = SpaceShip(1); // Here our adventure begins
     SpaceShip ss2 = SpaceShip(2);
     printframe();
     int tick = 0;
 
-    while(!ss1.isDead() && !ss2.isDead() && tick < 10000){ // If you die or reach 100 points the game ends
+    while(!ss1.isDead() && !ss2.isDead()){ // If a player die then quit the while loop
+        GenerateAsteroid(&Asteroids, tick);  // randomly generate some asteroids at the edges of the screen.
         
         tick += 1;
         // if(kbhit()){
@@ -432,65 +515,33 @@ int main(){
             ss2.shootbullet();
         }
         
-        // For every bullet that is in space
-        for(bullet = Bullets.begin(); bullet != Bullets.end(); bullet++){
-            (*bullet)->Move();
-            if ( ((*bullet)->isOut()) or ((*bullet)->Collision(ss1)) or ((*bullet)->Collision(ss2)) ){ // If the bullet reaches the end of the map or hit a player
-                delete(*bullet);
-                bullet = Bullets.erase(bullet);
-            }
-        }
+        // Move bullets and asteroids then remove those who're out of bounds.
+        Move(&Bullets);
+        Move(&Asteroids);
+        // if a bullet or asteroid hits the spaceship, the hp of the spaceship will decrease.
+        CollisionWithSpaceship(&Bullets, &ss1);
+        CollisionWithSpaceship(&Bullets, &ss2);
+        CollisionWithSpaceship(&Asteroids, &ss1);
+        CollisionWithSpaceship(&Asteroids, &ss2);
         
-        // Every asteroid checks if the spaceship shares it's coordinates :3
-        for(asteroid = Asteroids.begin(); asteroid != Asteroids.end(); asteroid++){
-            (*asteroid)->Move();
-            if ( ((*asteroid)->isOut()) or ((*asteroid)->Collision(ss1))  or ((*asteroid)->Collision(ss2)) ){ // If the asteroid reaches the end of the map or hit a player.
-                delete(*asteroid);
-                asteroid = Asteroids.erase(asteroid);
-            }
-        }
-        
-        for(asteroid = Asteroids.begin(); asteroid != Asteroids.end(); asteroid++){
-            for(bullet = Bullets.begin(); bullet != Bullets.end(); bullet++){ // asteroid-bullet collision
-                int astX = (*asteroid)->X(); //Coordinates of the asteroid
-                int astY = (*asteroid)->Y();
-                int bulX = (*bullet)->X(); // Coordinates of the bullet
-                int bulY = (*bullet)->Y();
-                if((astX == bulX) && ((astY == bulY) || (astY + 1 == bulY))){ //Chances are that in the Y axis they never reach the same value, that case must be considered
-                    frame[bulX][bulY] = ' '; // Makes the bullet invisible
-                    frame[astX][astY] = 'X';
-                    frame[astX][astY] = ' '; // I still have my doubts in this part, but it tries to signal a collision, sometimes the X remains theme...
-                    delete(*bullet); // You delete the bullet
-                    bullet = Bullets.erase(bullet);
-                    delete(*asteroid);// And the asteroid
-                    asteroid = Asteroids.erase(asteroid);
-                    Asteroids.push_back(new Asteroid(rand()%78 + 1, rand()%4 + 3, 's')); // in order to not reduce the number of asteroids I add one everytime one is destroyed
-                    //score += 10; // And you get 10 points for a job well done :3
-                }
-            }
-        }
+        vector <int> addexp = AddExperience(&Asteroids, &Bullets);
+        ss1.AddExp(addexp.at(0));
+        ss2.AddExp(addexp.at(1));
         
         char direction1 = HowToMove(ss1, Asteroids, Bullets);
-        if (ss1.WillCrash(ss2, direction1) == false) ss1.Move(direction1);
+        if (ss1.CrashWithOpponent(ss2, direction1) == false) ss1.Move(direction1);
         char direction2 = HowToMove(ss2, Asteroids, Bullets);
-        if (ss2.WillCrash(ss1, direction2) == false) ss2.Move(direction2);
-        for(bullet = Bullets.begin(); bullet != Bullets.end(); bullet++){
-            if ( ((*bullet)->Collision(ss1)) or ((*bullet)->Collision(ss2)) ){ // If the bullet reaches the end of the map or hit a player
-                delete(*bullet);
-                bullet = Bullets.erase(bullet);
-            }
-        }
-        // Every asteroid checks if the spaceship shares it's coordinates :3
-        for(asteroid = Asteroids.begin(); asteroid != Asteroids.end(); asteroid++){
-            (*asteroid)->Move();
-            if ( ((*asteroid)->Collision(ss1))  or ((*asteroid)->Collision(ss2)) ){ // If the asteroid reaches the end of the map or hit a player.
-                delete(*asteroid);
-                asteroid = Asteroids.erase(asteroid);
-            }
-        }
+        if (ss2.CrashWithOpponent(ss1, direction2) == false) ss2.Move(direction2);
+        
+        CollisionWithSpaceship(&Bullets, &ss1);
+        CollisionWithSpaceship(&Bullets, &ss2);
+        CollisionWithSpaceship(&Asteroids, &ss1);
+        CollisionWithSpaceship(&Asteroids, &ss2);
+        
         printframe();
-        std::this_thread::sleep_for(std::chrono::milliseconds(100)); // This is essential, otherwise the game would be unplayable
+        std::this_thread::sleep_for(std::chrono::milliseconds(30)); // This is essential, otherwise the game would be unplayable
     }
+    
     if (ss1.isDead()) GameOverPlayer2WinsMessage(); // If player1 died
     else if (ss2.isDead()) GameOverPlayer1WinsMessage(); // If player2 died
     else{
@@ -498,8 +549,5 @@ int main(){
         if (ss1.HP() < ss2.HP()) GameOverPlayer2WinsMessage();
         if (ss1.HP() == ss2.HP()) GameOverDrawMessage();
     }
-    std::this_thread::sleep_for(std::chrono::milliseconds(2000));
-    //SpecialMessage(); // Surprise
-    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     return 0;
 }
