@@ -1,8 +1,5 @@
-// TODO: better timing
-// TODO: add asteroid
-// TODO: add obstacle
-
-
+// TODO: add props
+// TODO: better coding style
 
 /*
 * Space Shooter - a simple C++ game
@@ -26,7 +23,7 @@ using namespace std;
 
 char frame[80][25];
 
-void printframe(){
+void PrintEverything(){
     system("clear");
     for (int i=0 ; i<25 ; i++){
         for (int j=0 ; j<80 ; j++) cout << frame[j][i];
@@ -63,13 +60,13 @@ void DrawGameLimits(){ // Draws the game limits, and information that doesn't ha
     DrawString(20,  1, "HP: 100");
     DrawString(30,  1, "bullet_power: 3");
     DrawString(50,  1, "Exp:  0");
-    DrawString(60,  1, "cooldown:   0");
+    DrawString(60,  1, "energy:   0");
     DrawString( 2, 24, "Player 1");
     DrawString(20, 24, "HP: 100");
     DrawString(30, 24, "bullet_power: 3");
     DrawString(50, 24, "Exp:  0");
-    DrawString(60, 24, "cooldown:   0");
-    printframe();
+    DrawString(60, 24, "energy:   0");
+    PrintEverything();
 }
 
 void WelcomeMessage(){ // The main title, I tried to center it as best as I could
@@ -83,7 +80,7 @@ void WelcomeMessage(){ // The main title, I tried to center it as best as I coul
     DrawString(13, 10, "      |_|");
     DrawString(13, 12, "                 Press enter to start");
     DrawString(13, 13, "         inspired by Carlos Hernandez C. - 2016");
-    printframe();
+    PrintEverything();
 }
 
 void GameOverPlayer1WinsMessage(){ // When player1 wins the game you see this in screen
@@ -93,7 +90,7 @@ void GameOverPlayer1WinsMessage(){ // When player1 wins the game you see this in
     int b_y = a_y + 4;
     DrawWindowFrame(a_x,a_y,b_x,b_y);
     DrawString(a_x+1, a_y+2, "   Player1 Wins !!!");
-    printframe();
+    PrintEverything();
 }
 
 void GameOverPlayer2WinsMessage(){ // When player2 wins the game you see this in screen
@@ -103,7 +100,7 @@ void GameOverPlayer2WinsMessage(){ // When player2 wins the game you see this in
     int b_y = a_y + 4;
     DrawWindowFrame(a_x,a_y,b_x,b_y);
     DrawString(a_x+1, a_y+2, "   Player2 Wins !!!");
-    printframe();
+    PrintEverything();
 }
 
 void GameOverDrawMessage(){ // When player2 wins the game you see this in screen
@@ -113,13 +110,13 @@ void GameOverDrawMessage(){ // When player2 wins the game you see this in screen
     int b_y = a_y + 4;
     DrawWindowFrame(a_x,a_y,b_x,b_y);
     DrawString(a_x+1, a_y+2, "       Draw!");
-    printframe();
+    PrintEverything();
 }
 
 void SpecialMessage(){ // A special message for your special needs
     DrawWhiteSpace(1,1,80,24);
     DrawString(30, 11, "Thanks for playing! :3");
-    printframe();
+    PrintEverything();
 }
 
 class SpaceShip{
@@ -129,7 +126,7 @@ class SpaceShip{
     int y; // y coordinate
     int hp; // heart points
     int power; // energy points
-    int cd; // cool down
+    int energy; // cool down
     int exp; //experiment
     bool imDead; // is the ship dead?
     
@@ -137,9 +134,8 @@ class SpaceShip{
     int NO() { return no; }
     int X()  { return x; }
     int Y()  { return y; }
-    int HP() { return hp; }
     int POWER() { return power; }
-    int CD() {return cd; }
+    int ENERGY() {return energy; }
     bool isDead(){ return imDead; }
 
     SpaceShip(int _no){
@@ -149,7 +145,7 @@ class SpaceShip{
         if (no == 2) y = 5;
         hp = 100; // I designed the game to have 100 lifes
         power = 3; // bullet power is 3
-        cd = 0;
+        energy = 0;
         exp = 0;
         imDead = false; // By default you are not dead
     }
@@ -169,10 +165,10 @@ class SpaceShip{
         else if (exp >=  10) DrawString(55, print_y, to_string(exp));
         else                 DrawString(56, print_y, to_string(exp));
                              DrawString(69, print_y, "   "); // to prevent from something like 1000->999 or 100->99
-        if      (cd >= 1000) DrawString(69, print_y, to_string(cd));
-        else if (cd >=  100) DrawString(70, print_y, to_string(cd));
-        else if (cd >=   10) DrawString(71, print_y, to_string(cd));
-        else                 DrawString(72, print_y, to_string(cd));
+        if      (energy >= 1000) DrawString(67, print_y, to_string(energy));
+        else if (energy >=  100) DrawString(68, print_y, to_string(energy));
+        else if (energy >=   10) DrawString(69, print_y, to_string(energy));
+        else                 DrawString(70, print_y, to_string(energy));
     }
     
     void Erase(){ // This was our spaceship
@@ -200,19 +196,19 @@ class SpaceShip{
     
     void Explosion(){ // When you lose a heart :c
         Draw();
-        printframe();
+        PrintEverything();
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
         Erase();
         DrawString(x, y  , " * * ");
         DrawString(x, y+1, "* * *");
         DrawString(x, y+2, " * * ");
-        printframe();
+        PrintEverything();
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
         Erase();
         DrawString(x, y  , "*   *");
         DrawString(x, y+1, " * * ");
         DrawString(x, y+2, "* * *");
-        printframe();
+        PrintEverything();
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
         imDead = true;
     }
@@ -231,7 +227,7 @@ class SpaceShip{
     }
     
     void Move(char key){ // The main function of the spaceship
-        cd ++;
+        energy ++;
         //if(kbhit()){ // If you move the spaceship   //TODO: here
         if (true){
             Erase(); // Look I'm invisible
@@ -253,7 +249,7 @@ class SpaceShip{
     }
     
     void shootbullet(){
-        cd = cd - 3;
+        energy -= 3;
     }
     
     void AddExp(int addexp){
@@ -274,7 +270,6 @@ class Asteroid{
     public:
     int X()  { return x; }
     int Y()  { return y; }
-    char DIR() { return direction; }
 
     Asteroid(int _x, int _y, char _direction){
         x = _x;
@@ -305,11 +300,11 @@ class Asteroid{
     
     bool Collision(SpaceShip *ss){ // The bullet finds the spaceship
         if( (x >= ss->X()) && (x <= ss->X() + 4) && (y >= ss->Y()) && (y <= ss->Y() + 2) ){ // Depending on the shape of the spaceship you have to tinker when the bullet really hits you
-            ss->Damage(5); // The bullet hurts
+            ss->Damage(2); // The bullet hurts
             //printf("%d hit by asteroid at %d %d", ss.NO(), x, y);
             frame[x][y] = 'X';
-            printframe();
-            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+            PrintEverything();
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
             frame[x][y] = ' '; // And the asteroid is "destroyed"
             return true;
         }
@@ -327,7 +322,6 @@ class Bullet{
     int X()  { return x; }
     int Y()  { return y; }
     int NO() { return no;}
-    int POWER() {return power; }
     Bullet(SpaceShip ss){ // a new bullet shot by ss
         if (ss.NO() == 1){
             no = 1;
@@ -362,8 +356,8 @@ class Bullet{
             ss->Damage(power); // The bullet hurts
             //printf("%d hit by asteroid at %d %d", ss.NO(), x, y);
             frame[x][y] = 'X';
-            printframe();
-            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+            PrintEverything();
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
             frame[x][y] = ' '; // And the asteroid is "destroyed"
             return true;
         }
@@ -386,26 +380,16 @@ char HowToMove(SpaceShip ss, list<Asteroid*> Asteroid, list<Bullet*>){
     return 'x';
 }
 
-bool touch(int xa, int ya, int xb, int yb, int xm, int ym, int xn, int yn){
-    // check if the rectangle defined by (xa, ya) and (xb, yb) and the rectangle (xm, ym) and (xn, yn) touches each other.
-    for (int x=xa ; x<=xb ; x++){
-        for (int y=ya ; y<=yb ; y++){
-            if ((x >= xm) and (x <= xn) and (y >= ym) and (y <= yn)) return true;
-        }
-    }
-    return false;
-}
-
 void GenerateAsteroid(list <Asteroid*> *Asteroids, int tick){
     if (tick == 0) return;
     int temp, probability_inverse = 100000/tick; // probability = (float) (tick) / 100000
-    for (int i=3 ; i<=21 ; i++){
+    for (int i=4 ; i<=20 ; i++){
         temp = rand() % probability_inverse;
         if (temp == 0) Asteroids -> push_back(new Asteroid(2, i, 'd'));
         temp = rand() % probability_inverse;
         if (temp == 0) Asteroids -> push_back(new Asteroid(78, i, 'a'));
     }
-    for (int i=2 ; i<=78 ; i++){
+    for (int i=3 ; i<=77 ; i++){
         temp = rand() % probability_inverse;
         if (temp == 0) Asteroids -> push_back(new Asteroid(i, 3, 's'));
         temp = rand() % probability_inverse;
@@ -441,48 +425,24 @@ void CollisionWithSpaceship(T *Things, SpaceShip *ss){
 
 vector <int> AddExperience(list <Asteroid *> *Asteroids, list <Bullet *> *Bullets){
     vector <int> answer(2, 0);
-    bool jumpout1 = false;
     for(list <Asteroid *>::iterator asteroid = Asteroids->begin(); asteroid != Asteroids->end(); asteroid++){
-        if (jumpout1 == true) break;
-        bool jumpout2 = false;
         for(list <Bullet *>::iterator bullet = Bullets->begin(); bullet != Bullets->end(); bullet++){ // asteroid-bullet collision
-            if (jumpout2 == true) break;
-            for (int i=0 ; i<3 ; i++){
-                int originalastX = (*asteroid)->X(), originalastY = (*asteroid)->Y(); // Coordinates of the asteroid
-                int originalbulX = (*bullet)->X(), originalbulY = (*bullet)->Y(); // Coordinates of the bullet
-                int astX = originalastX, astY = originalastY, bulX = originalbulX, bulY = originalbulY; // coordinates in the next tick.
-                if (i == 1){
-                    if ((*bullet) -> NO() == 1) bulY --;
-                    if ((*bullet) -> NO() == 2) bulY ++;
-                }
-                if (i == 2){
-                    if ((*asteroid) -> DIR() == 'a') astX --;
-                    if ((*asteroid) -> DIR() == 'd') astX ++;
-                    if ((*asteroid) -> DIR() == 'w') astY --;
-                    if ((*asteroid) -> DIR() == 's') astY ++;
-                }
-                if((astX == bulX) && (astY == bulY)){ //Chances are that in the Y axis they never reach the same value, that case must be considered
-                    frame[originalbulX][originalbulY] = ' '; // Makes the bullet invisible
-                    frame[originalastX][originalastY] = 'X';
-                    printframe();
-                    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-                    frame[originalastX][originalastY] = ' '; // I still have my doubts in this part, but it tries to signal a collision, sometimes the X remains theme...
-                    answer.at((*bullet)->NO()-1) += 20;
+            int astX = (*asteroid)->X(), astY = (*asteroid)->Y(); // Coordinates of the asteroid
+            int bulX = (*bullet)->X(), bulY = (*bullet)->Y(); // Coordinates of the bullet
+            if((astX == bulX) && (astY == bulY)){ //Chances are that in the Y axis they never reach the same value, that case must be considered
+                frame[bulX][bulY] = ' '; // Makes the bullet invisible
+                frame[astX][astY] = 'X';
+                PrintEverything();
+                std::this_thread::sleep_for(std::chrono::milliseconds(100));
+                frame[astX][astY] = ' '; // I still have my doubts in this part, but it tries to signal a collision, sometimes the X remains theme...
+                answer.at((*bullet)->NO()-1) += 20;
                     
-                    delete(*bullet); // You delete the bullet
-                    bullet = Bullets -> erase(bullet);
-                    delete(*asteroid);// And the asteroid
-                    asteroid = Asteroids -> erase(asteroid);
-                    if (bullet == Bullets->end()){
-                        jumpout2 = true;
-                        break;
-                    }
-                    if (asteroid == Asteroids->end()){
-                        jumpout2 = true;
-                        jumpout1 = true;
-                        break;
-                    }
-                }
+                delete(*bullet); // You delete the bullet
+                bullet = Bullets -> erase(bullet);
+                delete(*asteroid);// And the asteroid
+                asteroid = Asteroids -> erase(asteroid);
+                if (bullet == Bullets->end()) break;
+                if (asteroid == Asteroids->end()) return answer;
             }
         }
     }
@@ -509,50 +469,61 @@ int main(){
     
     SpaceShip ss1 = SpaceShip(1); // Here our adventure begins
     SpaceShip ss2 = SpaceShip(2);
-    printframe();
+    PrintEverything();
     int tick = 0;
 
     while(!ss1.isDead() && !ss2.isDead()){ // If a player die then quit the while loop
+        tick ++;
         GenerateAsteroid(&Asteroids, tick);  // randomly generate some asteroids at the edges of the screen.
-        
-        tick += 1;
         // if(kbhit()){
         // If you ahoot a bullet then you add a bullet to the bullet list
         bool shoot1 = isshoot(ss1, Asteroids, Bullets);
-        if ((shoot1 == true) && (ss1.CD() >= 3)){
+        if ((shoot1 == true) && (ss1.ENERGY() >= 3)){
             Bullets.push_back(new Bullet(ss1));
             ss1.shootbullet();
         }
         bool shoot2 = isshoot(ss2, Asteroids, Bullets);
-        if ((shoot2 == true) && (ss2.CD() >= 3)){
+        if ((shoot2 == true) && (ss2.ENERGY() >= 3)){
             Bullets.push_back(new Bullet(ss2));
             ss2.shootbullet();
         }
         
-        // Move bullets and asteroids then remove those who're out of bounds.
+        vector <int> addexp;
+        // Move bullets
         Move(&Bullets);
-        Move(&Asteroids);
-        
-        vector <int> addexp = AddExperience(&Asteroids, &Bullets);
+        CollisionWithSpaceship(&Bullets, &ss1);
+        CollisionWithSpaceship(&Bullets, &ss2);
+        addexp = AddExperience(&Asteroids, &Bullets);
         ss1.AddExp(addexp.at(0));
         ss2.AddExp(addexp.at(1));
+        if ((ss1.isDead() == true) or (ss2.isDead() == true)) break;
+        
+        Move(&Asteroids);
+        CollisionWithSpaceship(&Asteroids, &ss1);
+        CollisionWithSpaceship(&Asteroids, &ss2);
+        addexp = AddExperience(&Asteroids, &Bullets);
+        ss1.AddExp(addexp.at(0));
+        ss2.AddExp(addexp.at(1));
+        if ((ss1.isDead() == true) or (ss2.isDead() == true)) break;
         
         char direction1 = HowToMove(ss1, Asteroids, Bullets);
         if (ss1.CrashWithOpponent(ss2, direction1) == false) ss1.Move(direction1);
+        CollisionWithSpaceship(&Bullets, &ss1);
+        CollisionWithSpaceship(&Asteroids, &ss1);
+        if ((ss1.isDead() == true) or (ss2.isDead() == true)) break;
+        
         char direction2 = HowToMove(ss2, Asteroids, Bullets);
         if (ss2.CrashWithOpponent(ss1, direction2) == false) ss2.Move(direction2);
-        
-        CollisionWithSpaceship(&Bullets, &ss1);
         CollisionWithSpaceship(&Bullets, &ss2);
-        CollisionWithSpaceship(&Asteroids, &ss1);
         CollisionWithSpaceship(&Asteroids, &ss2);
+        if ((ss1.isDead() == true) or (ss2.isDead() == true)) break;
         
-        printframe();
-        std::this_thread::sleep_for(std::chrono::milliseconds(300)); // This is essential, otherwise the game would be unplayable
+        PrintEverything();
+        std::this_thread::sleep_for(std::chrono::milliseconds(30)); // This is essential, otherwise the game would be unplayable
     }
-    
     if (ss1.isDead() && ss2.isDead()) GameOverDrawMessage(); // Two players die at the same time.
     else if (ss2.isDead()) GameOverPlayer1WinsMessage(); // If player2 died
     else GameOverPlayer2WinsMessage(); // If player1 died
+    cout << tick << endl;
     return 0;
 }
