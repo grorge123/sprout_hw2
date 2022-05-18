@@ -140,11 +140,7 @@ class SpaceShip{
     int HP() { return hp; }
     int POWER() { return power; }
     int CD() {return cd; }
-
-    bool isDead(){
-        DrawSpaceShipInfo(); // It's annoying to die and still see a heart on the screen
-        return imDead;
-    }
+    bool isDead(){ return imDead; }
 
     SpaceShip(int _no){
         no = _no;
@@ -198,6 +194,7 @@ class SpaceShip{
     
     void Damage(int power){ // Triggered by the asteroids or bullets that hit the spaceship
         hp -= power;
+        DrawSpaceShipInfo();
         if (hp <= 0) Explosion();
     }
     
@@ -265,6 +262,7 @@ class SpaceShip{
             exp -= 100;
             power += 1;
         }
+        DrawSpaceShipInfo();
     }
 };
 
@@ -306,12 +304,12 @@ class Asteroid{
     }
     
     bool Collision(SpaceShip *ss){ // The bullet finds the spaceship
-        if( (x >= ss->X()) && (x <= ss->X() + 5) && (y >= ss->Y()) && (y <= ss->Y() + 2) ){ // Depending on the shape of the spaceship you have to tinker when the bullet really hits you
+        if( (x >= ss->X()) && (x <= ss->X() + 4) && (y >= ss->Y()) && (y <= ss->Y() + 2) ){ // Depending on the shape of the spaceship you have to tinker when the bullet really hits you
             ss->Damage(5); // The bullet hurts
             //printf("%d hit by asteroid at %d %d", ss.NO(), x, y);
             frame[x][y] = 'X';
             printframe();
-            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
             frame[x][y] = ' '; // And the asteroid is "destroyed"
             return true;
         }
@@ -360,12 +358,12 @@ class Bullet{
     }
     
     bool Collision(SpaceShip *ss){ // The bullet finds the spaceship
-        if( (x >= ss->X()) && (x <= ss->X() + 5) && (y >= ss->Y()) && (y <= ss->Y() + 2) && (no != ss->NO()) ){ // Depending on the shape of the spaceship you have to tinker when the bullet really hits you
+        if( (x >= ss->X()) && (x <= ss->X() + 4) && (y >= ss->Y()) && (y <= ss->Y() + 2) && (no != ss->NO()) ){ // Depending on the shape of the spaceship you have to tinker when the bullet really hits you
             ss->Damage(power); // The bullet hurts
             //printf("%d hit by asteroid at %d %d", ss.NO(), x, y);
             frame[x][y] = 'X';
             printframe();
-            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
             frame[x][y] = ' '; // And the asteroid is "destroyed"
             return true;
         }
@@ -443,35 +441,51 @@ void CollisionWithSpaceship(T *Things, SpaceShip *ss){
 
 vector <int> AddExperience(list <Asteroid *> *Asteroids, list <Bullet *> *Bullets){
     vector <int> answer(2, 0);
-    cout << "start" << endl;
-    bool jumpout = false;
+    bool jumpout1 = false;
     for(list <Asteroid *>::iterator asteroid = Asteroids->begin(); asteroid != Asteroids->end(); asteroid++){
-        if (jumpout == true) break;
+        if (jumpout1 == true) break;
+        bool jumpout2 = false;
         for(list <Bullet *>::iterator bullet = Bullets->begin(); bullet != Bullets->end(); bullet++){ // asteroid-bullet collision
-            int astX = (*asteroid)->X(); //Coordinates of the asteroid
-            int astY = (*asteroid)->Y();
-            int bulX = (*bullet)->X(); // Coordinates of the bullet
-            int bulY = (*bullet)->Y();
-            if((astX == bulX) && (astY == bulY)){ //Chances are that in the Y axis they never reach the same value, that case must be considered
-                frame[bulX][bulY] = ' '; // Makes the bullet invisible
-                frame[astX][astY] = 'X';
-                printframe();
-                std::this_thread::sleep_for(std::chrono::milliseconds(100));
-                frame[astX][astY] = ' '; // I still have my doubts in this part, but it tries to signal a collision, sometimes the X remains theme...
-                answer.at((*bullet)->NO()-1) += 20;
-                delete(*bullet); // You delete the bullet
-                bullet = Bullets -> erase(bullet);
-                if (bullet == Bullets->end()) break;
-                delete(*asteroid);// And the asteroid
-                asteroid = Asteroids -> erase(asteroid);
-                if (asteroid == Asteroids->end()){
-                    jumpout = true;
-                    break;
+            if (jumpout2 == true) break;
+            for (int i=0 ; i<3 ; i++){
+                int originalastX = (*asteroid)->X(), originalastY = (*asteroid)->Y(); // Coordinates of the asteroid
+                int originalbulX = (*bullet)->X(), originalbulY = (*bullet)->Y(); // Coordinates of the bullet
+                int astX = originalastX, astY = originalastY, bulX = originalbulX, bulY = originalbulY; // coordinates in the next tick.
+                if (i == 1){
+                    if ((*bullet) -> NO() == 1) bulY --;
+                    if ((*bullet) -> NO() == 2) bulY ++;
+                }
+                if (i == 2){
+                    if ((*asteroid) -> DIR() == 'a') astX --;
+                    if ((*asteroid) -> DIR() == 'd') astX ++;
+                    if ((*asteroid) -> DIR() == 'w') astY --;
+                    if ((*asteroid) -> DIR() == 's') astY ++;
+                }
+                if((astX == bulX) && (astY == bulY)){ //Chances are that in the Y axis they never reach the same value, that case must be considered
+                    frame[originalbulX][originalbulY] = ' '; // Makes the bullet invisible
+                    frame[originalastX][originalastY] = 'X';
+                    printframe();
+                    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+                    frame[originalastX][originalastY] = ' '; // I still have my doubts in this part, but it tries to signal a collision, sometimes the X remains theme...
+                    answer.at((*bullet)->NO()-1) += 20;
+                    
+                    delete(*bullet); // You delete the bullet
+                    bullet = Bullets -> erase(bullet);
+                    delete(*asteroid);// And the asteroid
+                    asteroid = Asteroids -> erase(asteroid);
+                    if (bullet == Bullets->end()){
+                        jumpout2 = true;
+                        break;
+                    }
+                    if (asteroid == Asteroids->end()){
+                        jumpout2 = true;
+                        jumpout1 = true;
+                        break;
+                    }
                 }
             }
         }
     }
-    cout << "end" << endl;
     return answer;
 }
 
@@ -518,11 +532,6 @@ int main(){
         // Move bullets and asteroids then remove those who're out of bounds.
         Move(&Bullets);
         Move(&Asteroids);
-        // if a bullet or asteroid hits the spaceship, the hp of the spaceship will decrease.
-        CollisionWithSpaceship(&Bullets, &ss1);
-        CollisionWithSpaceship(&Bullets, &ss2);
-        CollisionWithSpaceship(&Asteroids, &ss1);
-        CollisionWithSpaceship(&Asteroids, &ss2);
         
         vector <int> addexp = AddExperience(&Asteroids, &Bullets);
         ss1.AddExp(addexp.at(0));
@@ -539,15 +548,11 @@ int main(){
         CollisionWithSpaceship(&Asteroids, &ss2);
         
         printframe();
-        std::this_thread::sleep_for(std::chrono::milliseconds(30)); // This is essential, otherwise the game would be unplayable
+        std::this_thread::sleep_for(std::chrono::milliseconds(300)); // This is essential, otherwise the game would be unplayable
     }
     
-    if (ss1.isDead()) GameOverPlayer2WinsMessage(); // If player1 died
+    if (ss1.isDead() && ss2.isDead()) GameOverDrawMessage(); // Two players die at the same time.
     else if (ss2.isDead()) GameOverPlayer1WinsMessage(); // If player2 died
-    else{
-        if (ss1.HP() > ss2.HP()) GameOverPlayer1WinsMessage();
-        if (ss1.HP() < ss2.HP()) GameOverPlayer2WinsMessage();
-        if (ss1.HP() == ss2.HP()) GameOverDrawMessage();
-    }
+    else GameOverPlayer2WinsMessage(); // If player1 died
     return 0;
 }
