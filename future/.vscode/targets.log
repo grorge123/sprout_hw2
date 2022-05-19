@@ -1,0 +1,427 @@
+make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+# GNU Make 4.2.1
+# Built for x86_64-pc-linux-gnu
+# Copyright (C) 1988-2016 Free Software Foundation, Inc.
+# License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+# This is free software: you are free to change and redistribute it.
+# There is NO WARRANTY, to the extent permitted by law.
+
+# Make data base, printed on Thu May 19 12:15:49 2022
+
+# Variables
+
+# 'override' directive
+GNUMAKEFLAGS := 
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
+# automatic
+?F = $(notdir $?)
+# environment
+DESKTOP_SESSION = ubuntu
+# default
+.SHELLFLAGS := -c
+# environment
+XDG_SESSION_CLASS = user
+# environment
+SNAP_COMMON = /var/snap/code/common
+# environment
+XDG_SESSION_TYPE = x11
+# environment
+VSCODE_LOG_NATIVE = false
+# environment
+NVM_INC = /home/grorge/.nvm/versions/node/v16.0.0/include/node
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# environment
+XAUTHORITY = /run/user/1000/gdm/Xauthority
+# environment
+GDMSESSION = ubuntu
+# environment
+XMODIFIERS = @im=fcitx
+# makefile
+CURDIR := /home/grorge/Desktop/sprout/current
+# environment
+RBENV_SHELL = zsh
+# environment
+SNAP_DATA = /var/snap/code/97
+# environment
+VTE_VERSION = 6003
+# environment
+VSCODE_NLS_CONFIG = {"locale":"en","availableLanguages":{},"_languagePackSupport":true}
+# environment
+JOURNAL_STREAM = 8:59462
+# environment
+XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
+# environment
+SNAP_INSTANCE_NAME = code
+# environment
+SNAP_ARCH = amd64
+# makefile (from 'Makefile', line 1)
+MAKEFILE_LIST :=  Makefile
+# automatic
+@F = $(notdir $@)
+# environment
+IM_CONFIG_PHASE = 1
+# environment
+USERNAME = grorge
+# environment
+MAKELEVEL := 0
+# environment
+XDG_DATA_DIRS = /usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop
+# environment
+AUTOJUMP_SOURCED = 1
+# environment
+DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
+# environment
+VSCODE_VERBOSE_LOGGING = true
+# environment
+MANAGERPID = 2045
+# environment
+P9K_SSH = 0
+# environment
+CLUTTER_IM_MODULE = fcitx
+# environment
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-b650e7bf-43d9-4781-8548-3f5601d3c4d9.sock
+# environment
+LC_NAME = lzh_TW
+# environment
+VSCODE_CWD = /home/grorge/Desktop/sprout/current
+# environment
+GSETTINGS_SCHEMA_DIR = /snap/code/97/usr/share/glib-2.0/schemas
+# default
+MAKE_HOST := x86_64-pc-linux-gnu
+# environment
+PATH = /home/grorge/.local/share/zinit/plugins/paulirish---git-open:/home/grorge/.yarn/bin:/home/grorge/.config/yarn/global/node_modules/.bin:/home/grorge/go/bin:/home/grorge/.local/share/zinit/polaris/bin:/home/yi/.rbenv/shims:/home/grorge/.pyenv/bin:/home/grorge/.pyenv/shims:/home/grorge/.nvm/versions/node/v16.0.0/bin:/home/grorge/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin
+# environment
+GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
+# environment
+SESSION_MANAGER = local/grorge-System-Product-Name:@/tmp/.ICE-unix/2447,unix/grorge-System-Product-Name:/tmp/.ICE-unix/2447
+# environment
+XDG_RUNTIME_DIR = /run/user/1000
+# environment
+GDK_PIXBUF_MODULE_FILE = /home/grorge/snap/code/common/.cache/gdk-pixbuf-loaders.cache
+# environment
+SNAP = /snap/code/97
+# makefile (from 'Makefile', line 6)
+ALLEGRO_OPTIONS = -I/usr/include/x86_64-linux-gnu -lallegro_font -lallegro -lallegro_ttf -lallegro_primitives -lallegro_image
+# environment
+GOPATH = /home/grorge/go
+# environment
+NVM_BIN = /home/grorge/.nvm/versions/node/v16.0.0/bin
+# environment
+SNAP_VERSION = c3511e6c
+# environment
+XDG_MENU_PREFIX = gnome-
+# environment
+VSCODE_LOG_STACK = false
+# environment
+DISABLE_WAYLAND = 1
+# environment
+ELECTRON_RUN_AS_NODE = 1
+# environment
+PYENV_ROOT = /home/grorge/.pyenv
+# environment
+INVOCATION_ID = 0e61398f7fc245fcb63f255ab30298e4
+# environment
+GDK_PIXBUF_MODULEDIR = /snap/code/97/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
+# default
+.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
+# makefile (from 'Makefile', line 4)
+_OBJS = bin/utils/log.o bin/engine/game.o
+# environment
+XDG_SESSION_DESKTOP = ubuntu
+# environment
+SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
+# automatic
+%F = $(notdir $%)
+# environment
+DISPLAY = :1
+# environment
+GTK_IM_MODULE = fcitx
+# environment
+VSCODE_PIPE_LOGGING = true
+# environment
+SNAP_INSTANCE_KEY = 
+# environment
+PWD = /home/grorge/Desktop/sprout/current
+# default
+.LOADED := 
+# environment
+SSH_AGENT_PID = 2403
+# environment
+ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
+# environment
+GTK_MODULES = gail:atk-bridge
+# environment
+VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
+# environment
+HOME = /home/grorge
+# environment
+VSCODE_CLI = 1
+# environment
+VSCODE_CODE_CACHE_PATH = /home/grorge/.config/Code/CachedData/c3511e6c69bb39013c4a4b7b9566ec1ca73fc4d5
+# environment
+LOGNAME = grorge
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+# environment
+SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd/void
+# environment
+SNAP_CONTEXT = BivSzzWdgBgH_JDoo0d3LmH8mMNMyqycs3xT-J6No_nL7T3tXu7n
+# environment
+NVM_CD_FLAGS = -q
+# automatic
++F = $(notdir $+)
+# environment
+ELECTRON_NO_ATTACH_CONSOLE = 1
+# environment
+SNAP_USER_COMMON = /home/grorge/snap/code/common
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# environment
+GNOME_DESKTOP_SESSION_ID = this-is-deprecated
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# environment
+LC_TIME = lzh_TW
+# environment
+SNAP_REAL_HOME = /home/grorge
+# environment
+COLORTERM = truecolor
+# default
+MAKE = $(MAKE_COMMAND)
+# default
+MAKECMDGOALS := all
+# environment
+QT_IM_MODULE = fcitx
+# environment
+SNAP_USER_DATA = /home/grorge/snap/code/97
+# environment
+SHLVL = 1
+# environment
+GNOME_SHELL_SESSION_MODE = ubuntu
+# default
+MAKE_VERSION := 4.2.1
+# environment
+USER = grorge
+# environment
+SNAP_REVISION = 97
+# environment
+LC_MONETARY = lzh_TW
+# makefile
+.DEFAULT_GOAL := all
+# environment
+XDG_CURRENT_DESKTOP = Unity
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# environment
+LC_TELEPHONE = lzh_TW
+# default
+MAKE_COMMAND := make
+# environment
+ZPFX = /home/grorge/.local/share/zinit/polaris
+# environment
+OLDPWD = /home/grorge/Desktop/sprout
+# environment
+ZSH_CACHE_DIR = /home/grorge/.cache/zinit
+# default
+.VARIABLES := 
+# automatic
+*F = $(notdir $*)
+# environment
+VSCODE_IPC_HOOK = /run/user/1000/vscode-dbd7c976-1.67.2-main.sock
+# makefile
+MAKEFLAGS = pqrR
+# environment
+MFLAGS = -pqrR
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# environment
+NVM_DIR = /home/grorge/.nvm
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# makefile
+SHELL = /bin/sh
+# environment
+GDK_BACKEND = x11
+# environment
+LC_PAPER = lzh_TW
+# makefile (from 'Makefile', line 1)
+INCLUDE_PATH = src/
+# environment
+QT_ACCESSIBILITY = 1
+# environment
+PMSPEC = 0uUpiPsf
+# default
+MAKEFILES := 
+# environment
+SNAP_COOKIE = BivSzzWdgBgH_JDoo0d3LmH8mMNMyqycs3xT-J6No_nL7T3tXu7n
+# environment
+LC_NUMERIC = lzh_TW
+# automatic
+<F = $(notdir $<)
+# environment
+LC_MEASUREMENT = lzh_TW
+# environment
+SNAP_NAME = code
+# environment
+LC_ALL = C
+# environment
+QT4_IM_MODULE = fcitx
+# environment
+P9K_TTY = old
+# environment
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/b27de339_01b1_43ba_a011_73e883dec979
+# automatic
+^F = $(notdir $^)
+# environment
+GNOME_TERMINAL_SERVICE = :1.96
+# default
+SUFFIXES := 
+# environment
+SNAP_REEXEC = 
+# environment
+CHROME_DESKTOP = code-url-handler.desktop
+# environment
+WINDOWPATH = 2
+# default
+.INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
+# environment
+LC_IDENTIFICATION = lzh_TW
+# default
+.RECIPEPREFIX := 
+# environment
+AUTOJUMP_ERROR_PATH = /home/grorge/.local/share/autojump/errors.log
+# environment
+LC_ADDRESS = lzh_TW
+# environment
+LANG = C
+# environment
+TERM = xterm-256color
+# environment
+_P9K_TTY = /dev/pts/0
+# environment
+VSCODE_PID = 10174
+# makefile (from 'Makefile', line 2)
+CPP_FLAGS = -Wall -Wextra -std=c++17
+# variable set hash-table stats:
+# Load=148/1024=14%, Rehash=0, Collisions=28/174=16%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# . (device 66309, inode 39860051): 11 files, no impossibilities.
+
+# 11 files, no impossibilities in 1 directories.
+
+# Implicit Rules
+ 
+
+# No implicit rules.
+
+# Files
+
+source:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 14):
+	g++ source.cpp -o source.out
+
+# Not a target:
+src/utils/log.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-19 11:58:31.883146936
+#  File has been updated.
+#  Successfully updated.
+
+all: bin/main
+#  Command line target.
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Successfully updated.
+
+bin/utils/log.o: src/utils/log.cpp
+#  Implicit rule search has not been done.
+#  Last modified 2022-05-19 12:00:11.703360408
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 19):
+	mkdir -p bin/utils
+	g++ $^ -c -o $@ $(CPP_FLAGS) -I$(INCLUDE_PATH) $(ALLEGRO_OPTIONS)
+
+# Not a target:
+Makefile:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-19 12:15:09.368987677
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+src/engine/game.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-19 12:11:40.380636648
+#  File has been updated.
+#  Successfully updated.
+
+clean:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 11):
+	rm -rf bin/
+	rm source.out
+
+# Not a target:
+src/main.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-19 12:01:11.771483903
+#  File has been updated.
+#  Successfully updated.
+
+bin/engine/game.o: src/engine/game.cpp
+#  Implicit rule search has not been done.
+#  Last modified 2022-05-19 12:11:47.060648026
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 23):
+	mkdir -p bin/engine
+	g++ $^ -c -o $@ $(CPP_FLAGS) -I$(INCLUDE_PATH) $(ALLEGRO_OPTIONS)
+
+bin/main: src/main.cpp bin/utils/log.o bin/engine/game.o
+#  Implicit rule search has not been done.
+#  Last modified 2022-05-19 12:11:47.108648107
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 16):
+	g++ $^ -o $@ $(CPP_FLAGS) -I$(INCLUDE_PATH) $(ALLEGRO_OPTIONS)
+
+# files hash-table stats:
+# Load=12/1024=1%, Rehash=0, Collisions=1/32=3%
+# VPATH Search Paths
+
+# No 'vpath' search paths.
+
+# No general ('VPATH' variable) search path.
+
+# strcache buffers: 1 (0) / strings = 24 / storage = 235 B / avg = 9 B
+# current buf: size = 8162 B / used = 235 B / count = 24 / avg = 9 B
+
+# strcache performance: lookups = 38 / hit rate = 36%
+# hash-table stats:
+# Load=24/8192=0%, Rehash=0, Collisions=2/38=5%
+# Finished Make data base on Thu May 19 12:15:49 2022
+
+ 

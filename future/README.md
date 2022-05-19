@@ -1,0 +1,1 @@
+https://github.com/liballeg/allegro_wiki/wiki/Quickstart

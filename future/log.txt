@@ -1,0 +1,2 @@
+Allegro5 initialized
+Game begin
