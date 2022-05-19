@@ -1,5 +1,5 @@
-#ifndef _GAME_HPP
-#define _GAME_HPP
+#ifndef _SCENE_HPP
+#define _SCENE_HPP
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
@@ -7,37 +7,34 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 
-class Game{
-	public:
-		Game(void);
-		ALLEGRO_DISPLAY *game_display;
-		ALLEGRO_FONT *font;
-		ALLEGRO_BITMAP *img;
-		ALLEGRO_TIMER *update_timer;
-		ALLEGRO_EVENT_QUEUE *event_queue;
+extern ALLEGRO_DISPLAY *game_display;
+extern ALLEGRO_FONT *font;
+extern ALLEGRO_BITMAP *img;
+extern ALLEGRO_TIMER *update_timer;
+extern ALLEGRO_EVENT_QUEUE *event_queue;
+extern bool key_state[ALLEGRO_KEY_MAX];
 
-		const int SCREEN_W = 800;
-		const int SCREEN_H = 600;
-		const int FPS = 60;
+extern const int SCREEN_W;
+extern const int SCREEN_H;
+extern const int FPS;
 
-		const int IMG_W = 640;
-		const int IMG_H = 479;
 
-		bool key_state[ALLEGRO_KEY_MAX];
 
+class Scene{
+	public:	
+		bool done = false;
 		/* Declare function prototypes. */
-
 		// Initialize variables and resources.
 		// Allows the game to perform any initialization it needs before
 		// starting to run.
 		// Draw to display.
 		// This is called when the game should draw itself.
-		void draw(void);
+		virtual void draw(void) = 0;
 		// Release resources.
 		// Free the pointers we allocated.
-		void destroy(void);
+		virtual void destroy(void) = 0;
 		void start_event_loop(void);
-		void update(void);
+		virtual void update(void) = 0;
 };
 
 #endif

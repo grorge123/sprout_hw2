@@ -1,2 +1,12 @@
 Allegro5 initialized
+Key with keycode 1 down
 Game begin
+Key with keycode 0 up
+Key with keycode 0 down
+Key with keycode 0 down
+Key with keycode 0 down
+Key with keycode 0 up
+Key with keycode 1 up
+Key with keycode 0 up
+Key with keycode 0 down
+Key with keycode 0 up
