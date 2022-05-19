@@ -1,7 +1,11 @@
 INCLUDE_PATH = src/
 CPP_FLAGS = -Wall -Wextra -std=c++17
 
-_OBJS = bin/utils/log.o bin/engine/scene.o bin/engine/menu.o bin/engine/mainGame.o 
+_OBJS = bin/utils/log.o\
+ 		bin/engine/scene.o\
+		bin/engine/menu.o\
+		bin/engine/mainGame.o\
+		bin/object/player.cpp 
 
 ALLEGRO_OPTIONS = -I/usr/include/x86_64-linux-gnu -lallegro_font -lallegro -lallegro_ttf -lallegro_primitives -lallegro_image
 
@@ -10,8 +14,10 @@ all: bin/main
 clean:
 	rm -rf bin/
 	rm source.out
+	
 source:
 	g++ source.cpp -o source.out
+
 bin/main: src/main.cpp $(_OBJS)
 	g++ $^ -o $@ $(CPP_FLAGS) -I$(INCLUDE_PATH) $(ALLEGRO_OPTIONS)
 
@@ -29,4 +35,8 @@ bin/engine/scene.o: src/engine/scene.cpp
 
 bin/engine/menu.o: src/engine/menu.cpp
 	mkdir -p bin/engine
+	g++ $^ -c -o $@ $(CPP_FLAGS) -I$(INCLUDE_PATH) $(ALLEGRO_OPTIONS)
+
+bin/object/player.o: src/object/player.cpp
+	mkdir -p bin/object
 	g++ $^ -c -o $@ $(CPP_FLAGS) -I$(INCLUDE_PATH) $(ALLEGRO_OPTIONS)

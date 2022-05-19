@@ -1,5 +1,6 @@
 #include "mainGame.hpp"
 #include "../utils/log.hpp"
+#include "../object/player.hpp"
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_image.h>
@@ -17,6 +18,11 @@ MainGame::MainGame() {
 		LOG::game_abort("failed to load image: 32largebugs.jpg");
 }
 
+void MainGame::initial(void){
+	this->object_list.clear();
+	this->P1 = new Player(40, 18, 0, 0, "./image/ship1.png");
+	this->P2 = new Player(40, 5, 0, 0, "./image/ship2.png");
+}
 
 void MainGame::draw(void) {
 	// background color

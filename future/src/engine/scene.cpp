@@ -9,12 +9,14 @@
 void Scene::start_event_loop(void) {
 	
 	ALLEGRO_EVENT event;
-	while (!done) {
+	while (!this->done) {
 		al_wait_for_event(event_queue, &event);
-		if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
+		if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
+
 			// Event for clicking the window close button.
-			done = true;
-		else if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
+			this->done = true;
+			this->finish = true;
+		}else if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
 			LOG::game_log("Key with keycode %d down", event.keyboard.keycode);
 			key_state[event.keyboard.keycode] = true;
 		} else if (event.type == ALLEGRO_EVENT_KEY_UP) {

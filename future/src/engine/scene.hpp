@@ -23,6 +23,7 @@ extern const int FPS;
 class Scene{
 	public:	
 		bool done = false;
+		bool finish = false;
 		/* Declare function prototypes. */
 		// Initialize variables and resources.
 		// Allows the game to perform any initialization it needs before
