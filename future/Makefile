@@ -10,6 +10,7 @@ _OBJS = bin/utils/log.o\
 		bin/object/player.o\
 		bin/object/bullet.o\
 		bin/object/asteroid.o\
+		bin/object/potion.o
 
 ALLEGRO_OPTIONS = -I/usr/include/x86_64-linux-gnu -lallegro_font -lallegro -lallegro_ttf -lallegro_primitives -lallegro_image
 
@@ -58,5 +59,9 @@ bin/object/bullet.o: src/object/bullet.cpp
 	g++ $^ -c -o $@ $(CPP_FLAGS) -I$(INCLUDE_PATH) $(ALLEGRO_OPTIONS)
 
 bin/object/asteroid.o: src/object/asteroid.cpp
+	mkdir -p bin/object
+	g++ $^ -c -o $@ $(CPP_FLAGS) -I$(INCLUDE_PATH) $(ALLEGRO_OPTIONS)
+
+bin/object/potion.o: src/object/potion.cpp
 	mkdir -p bin/object
 	g++ $^ -c -o $@ $(CPP_FLAGS) -I$(INCLUDE_PATH) $(ALLEGRO_OPTIONS)

@@ -8,3 +8,8 @@ Asteroid::Asteroid(float _x, float _y, float _speedX, float _speedy, std::string
 }
 
 
+Asteroid::Asteroid(float _x, float _y, float _speedX, float _speedy, ALLEGRO_BITMAP *_img): Object(_x, _y, _speedX, _speedy, _img){
+
+}
+
+

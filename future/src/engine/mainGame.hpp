@@ -17,6 +17,7 @@ class MainGame : public Scene{
 		ALLEGRO_FONT *font;
 		ALLEGRO_BITMAP *asteroid_img;
 		ALLEGRO_BITMAP *bullet_img;
+		ALLEGRO_BITMAP *bullet2_img;
 		void draw(void) override;
 		void destroy(void) override;
 		void update(void) override;

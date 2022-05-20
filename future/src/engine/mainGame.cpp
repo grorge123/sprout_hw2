@@ -1,9 +1,11 @@
 #include "mainGame.hpp"
 #include "../utils/log.hpp"
+#include "../utils/imageProcess.hpp"
 #include "../object/object.hpp"
 #include "../object/player.hpp"
 #include "../object/bullet.hpp"
 #include "../object/asteroid.hpp"
+#include "../object/potion.hpp"
 #include <iostream>
 #include <string>
 #include <utility>
@@ -36,9 +38,18 @@ MainGame::MainGame() {
 	this->font = al_load_ttf_font("./fonts/Pattaya/Pattaya-Regular.ttf", 24, 0);
 	if (!this->font)
 		LOG::game_abort("failed to load font: pirulen.ttf");
-	// this->img = al_load_bitmap("0.jpeg");
-	// if (!this->img)
-	// 	LOG::game_abort("failed to load image: 32largebugs.jpg");
+
+	this->bullet_img = ImageProcess::load_bitmap_at_size("./image/bullet.png", scale, scale * 2);
+	if (!this->bullet_img)
+		LOG::game_abort("failed to load bullet image");
+
+	this->asteroid_img = ImageProcess::load_bitmap_at_size("./image/asteroid.png", scale, scale * 2);
+	if (!this->asteroid_img)
+		LOG::game_abort("failed to load bullet image");
+	this->bullet2_img = ImageProcess::load_bitmap_at_size("./image/bullet2.png", scale, scale * 2);
+	if (!this->bullet2_img)
+		LOG::game_abort("failed to load bullet2 image");
+	
 }
 
 void MainGame::initial(void){
@@ -109,6 +120,9 @@ void MainGame::draw(void) {
 void MainGame::destroy(void) {
 	// al_destroy_bitmap(this->img);
 	al_destroy_font(this->font);
+	al_destroy_bitmap(this->asteroid_img);
+	al_destroy_bitmap(this->bullet_img);
+	al_destroy_bitmap(this->bullet2_img);
 }
 
 MainGame::~MainGame(){
@@ -157,7 +171,8 @@ void MainGame::update(void) {
 	if(key_state[ALLEGRO_KEY_SPACE] && this->P1->energy >= 20 && this->P1->bullet_cool == 0){
 		this->P1->bullet_cool = 5;
 		this->P1->energy -= 20;
-		Object *bullet = new Bullet(this->P1->x + 1, this->P1->y - 1, 0, -1, "./image/bullet.png", scale, scale * 2, 1);
+		ALLEGRO_BITMAP *tmp = al_clone_bitmap(this->bullet_img);
+		Object *bullet = new Bullet(this->P1->x + 1, this->P1->y - 1, 0, -1, tmp, 1);
 		this->object_list.push_back(bullet);
 	}
 
@@ -184,7 +199,8 @@ void MainGame::update(void) {
 	if(key_state[ALLEGRO_KEY_ENTER] && this->P2->energy >= 20 && this->P2->bullet_cool == 0){
 		this->P2->bullet_cool = 5;
 		this->P2->energy -= 20;
-		Object *bullet = new Bullet(this->P2->x + 1, this->P2->y + 3, 0, 1, "./image/bullet2.png", scale, scale * 2, 1);
+		ALLEGRO_BITMAP *tmp = al_clone_bitmap(this->bullet_img);
+		Object *bullet = new Bullet(this->P2->x + 1, this->P2->y + 3, 0, 1, tmp, 1);
 		this->object_list.push_back(bullet);
 	}
 
@@ -193,16 +209,25 @@ void MainGame::update(void) {
 	if(rand() % probability_inverse == 0){
 		int side = rand() % 4;
 		Object *asteroid;
+		ALLEGRO_BITMAP *tmp = al_clone_bitmap(this->asteroid_img);
 		if(side == 0){
-			asteroid = new Asteroid(rand() % width, 0, 0, 0.1, "./image/asteroid.png", scale, scale * 2);
+			asteroid = new Asteroid(rand() % width, 0, 0, 0.1, tmp);
 		}else if(side == 1){
-			asteroid = new Asteroid(rand() % width, height, 0, -0.1, "./image/asteroid.png", scale, scale * 2);
+			asteroid = new Asteroid(rand() % width, height, 0, -0.1, tmp);
 		}else if(side == 2){
-			asteroid = new Asteroid(0, rand() % height, 0.2, 0, "./image/asteroid.png", scale, scale * 2);
+			asteroid = new Asteroid(0, rand() % height, 0.2, 0, tmp);
 		}else if(side == 3){
-			asteroid = new Asteroid(width, rand() % height, -0.2, 0, "./image/asteroid.png", scale, scale * 2);
+			asteroid = new Asteroid(width, rand() % height, -0.2, 0, tmp);
 		}
 		this->object_list.push_back(asteroid);
+	}
+
+	if(rand() % 600 == 0){
+		int type = rand() % 3;
+		std::string path = "./image/potion" + intToChar(type) + ".png";
+		std::cout << "POTION:" << ' ' << path << std::endl;
+		Object *potion = new Potion(rand() % width, rand() % height, 0, 0, path.c_str(), scale, scale * 2, type);
+		this->object_list.push_back(potion);
 	}
 
 	for(auto obj = this->object_list.begin() ; obj != this->object_list.end() ;){
@@ -241,6 +266,17 @@ void MainGame::update(void) {
 				flag = 1;
 				to = this->object_list.erase(to);
 				break;
+			}else if(dynamic_cast<Player*> (*from) && dynamic_cast<Potion*> (*to)){
+				auto py = dynamic_cast<Player*> (*from);
+				auto po = dynamic_cast<Potion*> (*to);
+				if(po->type == 0){
+					py->hp += 5;
+				}else if(po->type == 1){
+					py->exp += 50;
+				}else if(po->type == 2){
+					py->bullet_power += 5;
+				}
+				to = this->object_list.erase(to);
 			}else{
 				flag = 1;
 				to = this->object_list.erase(to);

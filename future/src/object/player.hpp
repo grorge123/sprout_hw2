@@ -4,6 +4,7 @@
 #include "object.hpp"
 #include <string>
 
+
 class Player : public Object{
 	public:
 		Player(float _x, float _y, float _speedX, float _speedy, std::string path, int w, int h);
