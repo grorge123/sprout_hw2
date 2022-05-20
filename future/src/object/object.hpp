@@ -6,33 +6,56 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 #include "../utils/log.hpp"
+#include "../utils/imageProcess.hpp"
 #include <string>
+#include <iostream>
+
+extern const int scale;
+extern const int width;
+extern const int height;
+extern const int space_width;
+extern const int space_height;
+extern const int upper_space;
+extern const int left_space;
+extern const int word_space;
 
 class Object{
-	private:
-		Object(int _x, int _y, int _speedX, int _speedY, std::string path){
+	public:	
+		Object(float _x, float _y, float _speedX, float _speedY, std::string path, int w, int h){
 			this->x = _x;
 			this->y = _y;
 			this->speedX = _speedX;
 			this->speedY = _speedY;
-			this->img = al_load_bitmap(path.c_str());
+
+			this->img = ImageProcess::load_bitmap_at_size(path.c_str(), w, h);
 			if (!this->img)
-				LOG::game_abort("failed to load image: 32largebugs.jpg");
+				LOG::game_abort("failed to load image: object");
+		};
+		Object(float _x, float _y, float _speedX, float _speedY, ALLEGRO_BITMAP *_img){
+			this->x = _x;
+			this->y = _y;
+			this->speedX = _speedX;
+			this->speedY = _speedY;
+			this->img = _img;
 		};
 		Object(){}
 		~Object(){
 			al_destroy_bitmap(this->img);
 		}
-	public:	
 		ALLEGRO_BITMAP *img;
-		int x;
-		int y;
-		int speedX;
-		int speedY;
-		virtual void collision(Object*) = 0;
-		virtual void update(void){
+		float x;
+		float y;
+		float speedX;
+		float speedY;
+		virtual bool update(void){
 			this->x += this->speedX;
 			this->y += this->speedY;
+			if(this->x < 0 || this->x >= width || this->y < 0 || this->y >= height){
+
+				return false;
+			} 
+
+			return true;
 		}
 		
 		

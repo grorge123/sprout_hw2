@@ -6,10 +6,10 @@
 
 class Player : public Object{
 	public:
-		Player(int _x, int _y, int _speedX, int _speedy, std::string path);
-		virtual void update() override;
-		virtual void collision(Object *other) override; 
-		
+		Player(float _x, float _y, float _speedX, float _speedy, std::string path, int w, int h);
+		virtual bool update() override;
+		int hp, bullet_power, exp, energy;
+		int bullet_cool;
 };
 
 #endif

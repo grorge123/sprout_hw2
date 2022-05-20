@@ -5,9 +5,10 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 
-#include "engine/mainGame.hpp"
 #include "utils/log.hpp"
+#include "engine/mainGame.hpp"
 #include "engine/menu.hpp"
+#include "engine/end.hpp"
 
 ALLEGRO_DISPLAY *game_display;
 ALLEGRO_FONT *font;
@@ -16,16 +17,25 @@ ALLEGRO_TIMER *update_timer;
 ALLEGRO_EVENT_QUEUE *event_queue;
 bool key_state[ALLEGRO_KEY_MAX];
 
-const int SCREEN_W = 800;
-const int SCREEN_H = 600;
+const int SCREEN_W = 1400;
+const int SCREEN_H = 800;
 const int FPS = 60;
 
+const int scale = 12;
+const int width = 80;
+const int height = 26;
+const int space_width = width * scale;
+const int space_height = height * scale * 2;
+const int upper_space = (SCREEN_H - space_height) / 2;
+const int left_space = (SCREEN_W - space_width) / 2;
+const int word_space = space_width / 4;
+
+int runtime = 0;
 
 // Program entry point.
 // Returns program exit code.
 int main(void) {
     // Initialize allegro5 library
-    string s;
     if (!al_init())
         LOG::game_abort("failed to initialize allegro");
 
@@ -49,16 +59,22 @@ int main(void) {
     al_start_timer(update_timer);
     
     LOG::game_log("Allegro5 initialized");
+    Menu menu;
+    MainGame mainGame;
+    End end;
     while(true){
+        menu.done = false;
         LOG::game_log("Game begin");
-        Menu menu;
         menu.start_event_loop();
-        menu.destroy();
         if(menu.finish)break;
-        MainGame mainGame;
+        runtime = 0;
+        mainGame.done = false;
+        mainGame.initial();
         mainGame.start_event_loop();
-        mainGame.destroy();
         if(mainGame.finish)break;
+        end.done = false;
+        end.start_event_loop();
+        if(end.finish)break;
         LOG::game_log("Game end");
     }
 

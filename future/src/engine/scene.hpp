@@ -18,6 +18,16 @@ extern const int SCREEN_W;
 extern const int SCREEN_H;
 extern const int FPS;
 
+extern const int scale;
+extern const int width;
+extern const int height;
+extern const int space_width;
+extern const int space_height;
+extern const int upper_space;
+extern const int left_space;
+extern const int word_space;
+
+extern int runtime;
 
 
 class Scene{

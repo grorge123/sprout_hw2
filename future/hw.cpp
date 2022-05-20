@@ -66,6 +66,7 @@ void DrawGameLimits(){ // Draws the game limits, and information that doesn't ha
     DrawString(50, 24, "Exp:  0");
     DrawString(60, 24, "energy:   0");
     PrintEverything();
+    for (int i=2 ; i<79 ; i++) frame[i][12] = '_';
 }
 
 void WelcomeMessage(){ // The main title, I tried to center it as best as I could
@@ -248,14 +249,14 @@ class SpaceShip{
             //char key;
             //cin.get(key);
             switch(key){ // Checks if the spaceship won't leave the game boundaries
-                case LEFT:  if(x > 3)      x -= 1; break;
-                case RIGHT: if(x + 4 < 77) x += 1; break;
-                case UP:    if(y > 4)      y -= 1; break;
-                case DOWN:  if(y + 2 < 20) y += 1; break;
-                case 'a':   if(x > 3)      x -= 1; break;
-                case 'd':   if(x + 4 < 77) x += 1; break;
-                case 'w':   if(y > 4)      y -= 1; break;
-                case 's':   if(y + 2 < 20) y += 1; break;
+                case LEFT:  if (x > 3)      x -= 1; break;
+                case RIGHT: if (x + 4 < 77) x += 1; break;
+                case UP:    if (y > 4)      y -= 1; break;
+                case DOWN:  if (y + 2 < 20) y += 1; break;
+                case 'a':   if (x != 3)      x -= 1; break;
+                case 'd':   if (x + 4 != 77) x += 1; break;
+                case 'w':   if ((y != 4) and (y != 13))        y -= 1; break;
+                case 's':   if ((y + 2 != 20) and (y+2 != 11)) y += 1; break;
             }
         }
         Draw(); // The spaceship is drawn regardless if you moved it or not, if you did then it will appear in it's new position.
@@ -322,7 +323,8 @@ class Asteroid{
     }
     
     void MoveAndDraw(){
-        frame[x][y] = ' ';
+        if (y != 12) frame[x][y] = ' ';
+        if (y == 12) frame[x][y] = '_';
         if (direction == 'a') x --;
         if (direction == 'd') x ++;
         if (direction == 'w') y --;
@@ -339,7 +341,8 @@ class Asteroid{
                 PrintEverything();
                 std::this_thread::sleep_for(std::chrono::milliseconds(100));
             }
-            frame[x][y] = ' '; // And the asteroid is "destroyed"
+            if (y != 12) frame[x][y] = ' '; // And the asteroid is "destroyed"
+            if (y == 12) frame[x][y] = '_';
             return true;
         }
         return false;
@@ -379,7 +382,8 @@ class Bullet{
     }
     
     void MoveAndDraw(){
-        frame[x][y] = ' ';
+        if (y != 12) frame[x][y] = ' '; // It disappears
+        if (y == 12) frame[x][y] = '_';
         if (no == 1) y--;
         if (no == 2) y++;
         frame[x][y] = '.'; // The shape of the bullet
@@ -406,6 +410,7 @@ class Prop{
     int x;
     int y;
     char type;
+    int tick;
     //  a for hp (20 and 50), b for exp (50 and 100), c for energy (20 and 100), d for shield (30 and 100 ticks), e for double (50 and 100 tick)
     public:
     int TYPE()  { return type; }
@@ -414,13 +419,19 @@ class Prop{
         x = _x;
         y = _y;
         type = _type;
+        tick = 200;
     }
     
     bool isOut(){
+        if (tick <= 0){
+            frame[x][y] = ' ';
+            return true;
+        }
         return false;
     }
     
     void MoveAndDraw(){
+        tick --;
         frame[x][y] = type;
     }
     
@@ -452,7 +463,7 @@ char HowToMove(SpaceShip ss, list<Asteroid*> Asteroid, list<Bullet*>){
 
 void GenerateAsteroid(list <Asteroid*> *Asteroids, int tick){
     if (tick == 0) return;
-    int temp, probability_inverse = 100000/tick; // probability = (float) (tick) / 100000
+    int temp, probability_inverse = 300000/tick; // probability = (float) (tick) / 200000
     for (int i=4 ; i<=20 ; i++){
         temp = rand() % probability_inverse;
         if (temp == 0) Asteroids -> push_back(new Asteroid(2, i, 'd'));
@@ -469,15 +480,17 @@ void GenerateAsteroid(list <Asteroid*> *Asteroids, int tick){
 }
 
 void GenerateProps(list <Prop*> *Props, int tick){
-    int temp = rand() % 10000;
-    if ((temp <= tick) and (temp <= 200)){
-        int x = rand() % 75 + 3;
-        int y = rand() % 17 + 4;
+    int temp = rand() % 50000;
+    if ((temp <= tick) and (temp <= 500)){
+        int x1 = rand() % 75 + 3, x2 = rand() % 75 + 3;
+        int y1 = rand() % 8 + 4,  y2 = rand() % 8 + 13;
         char type;
-        temp = rand() % 1000;
-        if (temp <= tick) type = temp % 5 + 'A';
-        if (temp > tick) type = temp % 5 + 'a';
-        Props -> push_back(new Prop(x, y, type));
+        //temp = rand() % 1000;
+        //if (temp <= tick) type = temp % 5 + 'A';
+        //if (temp > tick) type = temp % 5 + 'a';
+        type = temp % 5 + 'A';
+        Props -> push_back(new Prop(x1, y1, type));
+        Props -> push_back(new Prop(x2, y2, type));
     }
 }
 
@@ -513,11 +526,13 @@ vector <int> AddExperience(list <Asteroid *> *Asteroids, list <Bullet *> *Bullet
             int astX = (*asteroid)->X(), astY = (*asteroid)->Y(); // Coordinates of the asteroid
             int bulX = (*bullet)->X(), bulY = (*bullet)->Y(); // Coordinates of the bullet
             if((astX == bulX) && (astY == bulY)){ //Chances are that in the Y axis they never reach the same value, that case must be considered
-                frame[bulX][bulY] = ' '; // Makes the bullet invisible
+                if (bulY != 12) frame[bulX][bulY] = ' '; // Makes the bullet invisible
+                if (bulY == 12) frame[bulX][bulY] = '_';
                 frame[astX][astY] = 'X';
                 PrintEverything();
                 std::this_thread::sleep_for(std::chrono::milliseconds(100));
-                frame[astX][astY] = ' '; // I still have my doubts in this part, but it tries to signal a collision, sometimes the X remains theme...
+                if (astY != 12) frame[astX][astY] = ' '; // I still have my doubts in this part, but it tries to signal a collision, sometimes the X remains theme...
+                if (astY == 12) frame[astX][astY] = '_';
                 answer.at((*bullet)->NO()-1) += 20;
                     
                 delete(*bullet); // You delete the bullet
