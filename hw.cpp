@@ -410,6 +410,7 @@ class Prop{
     int x;
     int y;
     char type;
+    int tick;
     //  a for hp (20 and 50), b for exp (50 and 100), c for energy (20 and 100), d for shield (30 and 100 ticks), e for double (50 and 100 tick)
     public:
     int TYPE()  { return type; }
@@ -418,13 +419,19 @@ class Prop{
         x = _x;
         y = _y;
         type = _type;
+        tick = 200;
     }
     
     bool isOut(){
+        if (tick <= 0){
+            frame[x][y] = ' ';
+            return true;
+        }
         return false;
     }
     
     void MoveAndDraw(){
+        tick --;
         frame[x][y] = type;
     }
     
@@ -473,8 +480,8 @@ void GenerateAsteroid(list <Asteroid*> *Asteroids, int tick){
 }
 
 void GenerateProps(list <Prop*> *Props, int tick){
-    int temp = rand() % 20000;
-    if ((temp <= tick) and (temp <= 200)){
+    int temp = rand() % 50000;
+    if ((temp <= tick) and (temp <= 500)){
         int x1 = rand() % 75 + 3, x2 = rand() % 75 + 3;
         int y1 = rand() % 8 + 4,  y2 = rand() % 8 + 13;
         char type;
