@@ -13,7 +13,7 @@ class Bullet : public Object{
 	public:
 		Bullet(float _x, float _y, float _speedX, float _speedy, std::string path, int w, int h, int type);
 		Bullet(float _x, float _y, float _speedX, float _speedy, ALLEGRO_BITMAP *_img, int type);
-		// set the type of the potion
+		// record which player create this bullet
 		int type;
 };
 

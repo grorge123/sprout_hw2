@@ -118,7 +118,7 @@ void MainGame::draw(void) {
 			al_draw_bitmap(obj->img, left_space + obj->x * scale, upper_space + obj->y * scale * 2, 0);
 		}
 	}
-
+	// render scene
 	al_flip_display();
 }
 // release resource
@@ -277,7 +277,7 @@ void MainGame::update(void) {
 				// player collide asteroid
 				auto py = dynamic_cast<Player*> (*from);
 				// decrease player hp
-				py->hp -= 5;
+				py->hp -= 3;
 				// erase asteroid
 				to = this->object_list.erase(to);
 			}else if(dynamic_cast<Bullet*> (*from) && dynamic_cast<Asteroid*> (*to)){
@@ -300,11 +300,11 @@ void MainGame::update(void) {
 				auto po = dynamic_cast<Potion*> (*to);
 				// check what type of the potion 
 				if(po->type == 0){
-					py->hp += 5;
+					py->hp += 30;
 				}else if(po->type == 1){
-					py->exp += 50;
+					py->bullet_power += 1;
 				}else if(po->type == 2){
-					py->bullet_power += 5;
+					py->energy += 100;
 				}
 				// erase potion
 				to = this->object_list.erase(to);
