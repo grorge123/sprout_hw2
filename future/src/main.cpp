@@ -47,7 +47,8 @@ int main(void) {
     if (!al_init_image_addon()) LOG::game_abort("failed to initialize image add-on");
 	if (!al_install_keyboard()) LOG::game_abort("failed to install keyboard");
 
-    	update_timer = al_create_timer(1.0f / FPS);
+    // create timer and event queue
+    update_timer = al_create_timer(1.0f / FPS);
     if (!update_timer) LOG::game_abort("failed to create timer");
     
 	event_queue = al_create_event_queue();
@@ -59,13 +60,16 @@ int main(void) {
     al_start_timer(update_timer);
     
     LOG::game_log("Allegro5 initialized");
+    // create scene
     Menu menu;
     MainGame mainGame;
     End end;
     while(true){
+        // enable scene and start event
         menu.done = false;
         LOG::game_log("Game begin");
         menu.start_event_loop();
+        // if close window or ctrl+c, finish will be set true
         if(menu.finish)break;
         runtime = 0;
         mainGame.done = false;
@@ -77,7 +81,7 @@ int main(void) {
         if(end.finish)break;
         LOG::game_log("Game end");
     }
-
+    // release resource
     al_destroy_timer(update_timer);
     al_destroy_event_queue(event_queue);
     al_destroy_display(game_display);

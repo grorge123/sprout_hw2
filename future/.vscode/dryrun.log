@@ -1,5 +1,25 @@
-make --dry-run --keep-going --print-directory
-make: Entering directory '/home/grorge/Desktop/sprout/current'
-make: Nothing to be done for 'all'.
-make: Leaving directory '/home/grorge/Desktop/sprout/current'
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/grorge/Desktop/sprout/sprout_hw2/future'
+mkdir -p bin/utils
+g++ src/utils/log.cpp -c -o bin/utils/log.o -Wall -Wextra -std=c++17 -Isrc/ -I/usr/include/x86_64-linux-gnu -lallegro_font -lallegro -lallegro_ttf -lallegro_primitives -lallegro_image
+mkdir -p bin/utils
+g++ src/utils/imageProcess.cpp -c -o bin/utils/imageProcess.o -Wall -Wextra -std=c++17 -Isrc/ -I/usr/include/x86_64-linux-gnu -lallegro_font -lallegro -lallegro_ttf -lallegro_primitives -lallegro_image
+mkdir -p bin/engine
+g++ src/engine/scene.cpp -c -o bin/engine/scene.o -Wall -Wextra -std=c++17 -Isrc/ -I/usr/include/x86_64-linux-gnu -lallegro_font -lallegro -lallegro_ttf -lallegro_primitives -lallegro_image
+mkdir -p bin/engine
+g++ src/engine/menu.cpp -c -o bin/engine/menu.o -Wall -Wextra -std=c++17 -Isrc/ -I/usr/include/x86_64-linux-gnu -lallegro_font -lallegro -lallegro_ttf -lallegro_primitives -lallegro_image
+mkdir -p bin/engine
+g++ src/engine/mainGame.cpp -c -o bin/engine/mainGame.o -Wall -Wextra -std=c++17 -Isrc/ -I/usr/include/x86_64-linux-gnu -lallegro_font -lallegro -lallegro_ttf -lallegro_primitives -lallegro_image
+mkdir -p bin/engine
+g++ src/engine/end.cpp -c -o bin/engine/end.o -Wall -Wextra -std=c++17 -Isrc/ -I/usr/include/x86_64-linux-gnu -lallegro_font -lallegro -lallegro_ttf -lallegro_primitives -lallegro_image
+mkdir -p bin/object
+g++ src/object/player.cpp -c -o bin/object/player.o -Wall -Wextra -std=c++17 -Isrc/ -I/usr/include/x86_64-linux-gnu -lallegro_font -lallegro -lallegro_ttf -lallegro_primitives -lallegro_image
+mkdir -p bin/object
+g++ src/object/bullet.cpp -c -o bin/object/bullet.o -Wall -Wextra -std=c++17 -Isrc/ -I/usr/include/x86_64-linux-gnu -lallegro_font -lallegro -lallegro_ttf -lallegro_primitives -lallegro_image
+mkdir -p bin/object
+g++ src/object/asteroid.cpp -c -o bin/object/asteroid.o -Wall -Wextra -std=c++17 -Isrc/ -I/usr/include/x86_64-linux-gnu -lallegro_font -lallegro -lallegro_ttf -lallegro_primitives -lallegro_image
+mkdir -p bin/object
+g++ src/object/potion.cpp -c -o bin/object/potion.o -Wall -Wextra -std=c++17 -Isrc/ -I/usr/include/x86_64-linux-gnu -lallegro_font -lallegro -lallegro_ttf -lallegro_primitives -lallegro_image
+g++ src/main.cpp bin/utils/log.o bin/utils/imageProcess.o bin/engine/scene.o bin/engine/menu.o bin/engine/mainGame.o bin/engine/end.o bin/object/player.o bin/object/bullet.o bin/object/asteroid.o bin/object/potion.o -o bin/main -Wall -Wextra -std=c++17 -Isrc/ -I/usr/include/x86_64-linux-gnu -lallegro_font -lallegro -lallegro_ttf -lallegro_primitives -lallegro_image
+make: Leaving directory '/home/grorge/Desktop/sprout/sprout_hw2/future'
  

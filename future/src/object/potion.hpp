@@ -13,6 +13,7 @@ class Potion : public Object{
 	public:
 		Potion(float _x, float _y, float _speedX, float _speedy, std::string path, int w, int h, int type);
 		Potion(float _x, float _y, float _speedX, float _speedy, ALLEGRO_BITMAP *_img, int type);
+		// set the type of the potion
 		int type;
 };
 

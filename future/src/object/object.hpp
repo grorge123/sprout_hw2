@@ -21,6 +21,7 @@ extern const int word_space;
 
 class Object{
 	public:	
+		// construct with image path name and path size
 		Object(float _x, float _y, float _speedX, float _speedY, std::string path, int w, int h){
 			this->x = _x;
 			this->y = _y;
@@ -31,6 +32,7 @@ class Object{
 			if (!this->img)
 				LOG::game_abort("failed to load image: object");
 		};
+		// construct with bitmap point
 		Object(float _x, float _y, float _speedX, float _speedY, ALLEGRO_BITMAP *_img){
 			this->x = _x;
 			this->y = _y;
@@ -40,16 +42,24 @@ class Object{
 		};
 		Object(){}
 		~Object(){
+			this->destroy();
+		}
+		// release resource
+		void destroy(void){
 			al_destroy_bitmap(this->img);
 		}
+		// object image
 		ALLEGRO_BITMAP *img;
+		// object position and speed
 		float x;
 		float y;
 		float speedX;
 		float speedY;
+		// this will called when scene want to update the object position
 		virtual bool update(void){
 			this->x += this->speedX;
 			this->y += this->speedY;
+			//return false when the object out of range
 			if(this->x < 0 || this->x >= width || this->y < 0 || this->y >= height){
 
 				return false;

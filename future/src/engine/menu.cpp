@@ -20,6 +20,7 @@ void Menu::draw(void){
 	al_draw_rectangle(left_space, upper_space,
 					left_space + space_width, upper_space + space_height,
 					al_map_rgb(255, 255, 255), 0);
+	// draw info message
 	char welcome_message[] ="Welcome to sprout HW2";
 	char info_message[] ="Press any key to play";
 	al_draw_text(this->font, al_map_rgb(255, 255, 255), SCREEN_W / 2, 300,
@@ -37,6 +38,7 @@ Menu::~Menu(void){
 	this->destroy();
 }
 void Menu::update(void) {
+	// check keyboard status
 	for(auto i:key_state){
 		if(i){
 			this->done = true;

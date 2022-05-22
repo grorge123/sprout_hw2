@@ -44,7 +44,9 @@ class Scene{
 		// Release resources.
 		// Free the pointers we allocated.
 		virtual void destroy(void) = 0;
+		// start event loop check draw and update every frame
 		void start_event_loop(void);
+		// update the scene
 		virtual void update(void) = 0;
 };
 

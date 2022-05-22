@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Thu May 19 12:15:49 2022
+# Make data base, printed on Sun May 22 22:31:55 2022
 
 # Variables
 
@@ -41,7 +41,7 @@ GDMSESSION = ubuntu
 # environment
 XMODIFIERS = @im=fcitx
 # makefile
-CURDIR := /home/grorge/Desktop/sprout/current
+CURDIR := /home/grorge/Desktop/sprout/sprout_hw2/future
 # environment
 RBENV_SHELL = zsh
 # environment
@@ -51,7 +51,7 @@ VTE_VERSION = 6003
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en","availableLanguages":{},"_languagePackSupport":true}
 # environment
-JOURNAL_STREAM = 8:59462
+JOURNAL_STREAM = 8:46405
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # environment
@@ -77,34 +77,34 @@ DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-MANAGERPID = 2045
+MANAGERPID = 2164
 # environment
 P9K_SSH = 0
 # environment
 CLUTTER_IM_MODULE = fcitx
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-b650e7bf-43d9-4781-8548-3f5601d3c4d9.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-28289d47-68cc-4ef9-be86-7b343dc60f5c.sock
 # environment
 LC_NAME = lzh_TW
 # environment
-VSCODE_CWD = /home/grorge/Desktop/sprout/current
+VSCODE_CWD = /home/grorge/Desktop/sprout/sprout_hw2/future
 # environment
 GSETTINGS_SCHEMA_DIR = /snap/code/97/usr/share/glib-2.0/schemas
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # environment
-PATH = /home/grorge/.local/share/zinit/plugins/paulirish---git-open:/home/grorge/.yarn/bin:/home/grorge/.config/yarn/global/node_modules/.bin:/home/grorge/go/bin:/home/grorge/.local/share/zinit/polaris/bin:/home/yi/.rbenv/shims:/home/grorge/.pyenv/bin:/home/grorge/.pyenv/shims:/home/grorge/.nvm/versions/node/v16.0.0/bin:/home/grorge/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin
+PATH = /home/grorge/.local/share/zinit/plugins/paulirish---git-open:/home/grorge/.yarn/bin:/home/grorge/.config/yarn/global/node_modules/.bin:/home/grorge/go/bin:/home/grorge/.local/share/zinit/polaris/bin:/home/yi/.rbenv/shims:/home/grorge/.pyenv/bin:/home/grorge/.pyenv/shims:/home/grorge/.nvm/versions/node/v16.0.0/bin:/home/grorge/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin:/home/grorge/Desktop/CA_HW/riscv64-unknown-elf-toolchain-10.2.0-2020.12.8-x86_64-linux-ubuntu14/bin
 # environment
 GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
-SESSION_MANAGER = local/grorge-System-Product-Name:@/tmp/.ICE-unix/2447,unix/grorge-System-Product-Name:/tmp/.ICE-unix/2447
+SESSION_MANAGER = local/grorge-System-Product-Name:@/tmp/.ICE-unix/2567,unix/grorge-System-Product-Name:/tmp/.ICE-unix/2567
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
 GDK_PIXBUF_MODULE_FILE = /home/grorge/snap/code/common/.cache/gdk-pixbuf-loaders.cache
 # environment
 SNAP = /snap/code/97
-# makefile (from 'Makefile', line 6)
+# makefile (from 'Makefile', line 15)
 ALLEGRO_OPTIONS = -I/usr/include/x86_64-linux-gnu -lallegro_font -lallegro -lallegro_ttf -lallegro_primitives -lallegro_image
 # environment
 GOPATH = /home/grorge/go
@@ -123,13 +123,13 @@ ELECTRON_RUN_AS_NODE = 1
 # environment
 PYENV_ROOT = /home/grorge/.pyenv
 # environment
-INVOCATION_ID = 0e61398f7fc245fcb63f255ab30298e4
+INVOCATION_ID = 6120f2b5b7134d2b8b52ec47c38f6323
 # environment
 GDK_PIXBUF_MODULEDIR = /snap/code/97/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # makefile (from 'Makefile', line 4)
-_OBJS = bin/utils/log.o bin/engine/game.o
+_OBJS = bin/utils/log.o bin/utils/imageProcess.o bin/engine/scene.o bin/engine/menu.o bin/engine/mainGame.o bin/engine/end.o bin/object/player.o bin/object/bullet.o bin/object/asteroid.o bin/object/potion.o
 # environment
 XDG_SESSION_DESKTOP = ubuntu
 # environment
@@ -145,11 +145,11 @@ VSCODE_PIPE_LOGGING = true
 # environment
 SNAP_INSTANCE_KEY = 
 # environment
-PWD = /home/grorge/Desktop/sprout/current
+PWD = /home/grorge/Desktop/sprout/sprout_hw2/future
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 2403
+SSH_AGENT_PID = 2523
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
@@ -165,7 +165,7 @@ VSCODE_CODE_CACHE_PATH = /home/grorge/.config/Code/CachedData/c3511e6c69bb39013c
 # environment
 LOGNAME = grorge
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # environment
 SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd/void
 # environment
@@ -223,7 +223,7 @@ MAKE_COMMAND := make
 # environment
 ZPFX = /home/grorge/.local/share/zinit/polaris
 # environment
-OLDPWD = /home/grorge/Desktop/sprout
+OLDPWD = /home/grorge
 # environment
 ZSH_CACHE_DIR = /home/grorge/.cache/zinit
 # default
@@ -273,11 +273,11 @@ QT4_IM_MODULE = fcitx
 # environment
 P9K_TTY = old
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/b27de339_01b1_43ba_a011_73e883dec979
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/54372aea_810e_4e59_bc1c_8d3cb4c1bb83
 # automatic
 ^F = $(notdir $^)
 # environment
-GNOME_TERMINAL_SERVICE = :1.96
+GNOME_TERMINAL_SERVICE = :1.97
 # default
 SUFFIXES := 
 # environment
@@ -303,11 +303,11 @@ TERM = xterm-256color
 # environment
 _P9K_TTY = /dev/pts/0
 # environment
-VSCODE_PID = 10174
+VSCODE_PID = 6970
 # makefile (from 'Makefile', line 2)
 CPP_FLAGS = -Wall -Wextra -std=c++17
 # variable set hash-table stats:
-# Load=148/1024=14%, Rehash=0, Collisions=28/174=16%
+# Load=148/1024=14%, Rehash=0, Collisions=29/180=16%
 
 # Pattern-specific Variable Values
 
@@ -315,12 +315,12 @@ CPP_FLAGS = -Wall -Wextra -std=c++17
 
 # Directories
 
-# . (device 66309, inode 39860051): 11 files, no impossibilities.
+ 
+# . (device 66309, inode 39860051): 12 files, no impossibilities.
 
-# 11 files, no impossibilities in 1 directories.
+# 12 files, no impossibilities in 1 directories.
 
 # Implicit Rules
- 
 
 # No implicit rules.
 
@@ -330,38 +330,164 @@ source:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 14):
-	g++ source.cpp -o source.out
+#  recipe to execute (from 'Makefile', line 24):
+	g++ hw.cpp -o hw.out
+
+# Not a target:
+src/engine/menu.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-20 16:41:28.973884629
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/object/player.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 # Not a target:
 src/utils/log.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-19 11:58:31.883146936
+#  Last modified 2022-05-19 19:45:31.589245417
 #  File has been updated.
 #  Successfully updated.
+
+bin/engine/scene.o: src/engine/scene.cpp
+#  Implicit rule search has not been done.
+#  Last modified 2022-05-20 23:05:46.458024658
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 42):
+	mkdir -p bin/engine
+	g++ $^ -c -o $@ $(CPP_FLAGS) -I$(INCLUDE_PATH) $(ALLEGRO_OPTIONS)
 
 all: bin/main
 #  Command line target.
 #  Implicit rule search has been done.
 #  File does not exist.
 #  File has been updated.
+#  Needs to be updated (-q is set).
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/6=0%
+
+bin/engine/menu.o: src/engine/menu.cpp
+#  Implicit rule search has not been done.
+#  Last modified 2022-05-20 23:05:46.482024711
+#  File has been updated.
 #  Successfully updated.
+#  recipe to execute (from 'Makefile', line 46):
+	mkdir -p bin/engine
+	g++ $^ -c -o $@ $(CPP_FLAGS) -I$(INCLUDE_PATH) $(ALLEGRO_OPTIONS)
+
+bin/object/player.o: src/object/player.cpp
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 54):
+	mkdir -p bin/object
+	g++ $^ -c -o $@ $(CPP_FLAGS) -I$(INCLUDE_PATH) $(ALLEGRO_OPTIONS)
 
 bin/utils/log.o: src/utils/log.cpp
 #  Implicit rule search has not been done.
-#  Last modified 2022-05-19 12:00:11.703360408
+#  Last modified 2022-05-20 23:05:46.414024562
 #  File has been updated.
 #  Successfully updated.
-#  recipe to execute (from 'Makefile', line 19):
+#  recipe to execute (from 'Makefile', line 30):
 	mkdir -p bin/utils
+	g++ $^ -c -o $@ $(CPP_FLAGS) -I$(INCLUDE_PATH) $(ALLEGRO_OPTIONS)
+
+# Not a target:
+src/engine/mainGame.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-20 23:21:29.832167361
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+.SUFFIXES:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+src/utils/imageProcess.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-20 17:29:52.085868613
+#  File has been updated.
+#  Successfully updated.
+
+bin/engine/mainGame.o: src/engine/mainGame.cpp
+#  Implicit rule search has not been done.
+#  Implicit/static pattern stem: ''
+#  Last modified 2022-05-20 23:18:51.063800827
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := bin/engine/mainGame.o
+# automatic
+# % := 
+# automatic
+# * := 
+# automatic
+# + := src/engine/mainGame.cpp
+# automatic
+# | := 
+# automatic
+# < := src/engine/mainGame.cpp
+# automatic
+# ^ := src/engine/mainGame.cpp
+# automatic
+# ? := src/engine/mainGame.cpp
+# variable set hash-table stats:
+# Load=8/32=25%, Rehash=0, Collisions=1/16=6%
+#  recipe to execute (from 'Makefile', line 38):
+	mkdir -p bin/engine
 	g++ $^ -c -o $@ $(CPP_FLAGS) -I$(INCLUDE_PATH) $(ALLEGRO_OPTIONS)
 
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-19 12:15:09.368987677
+#  Last modified 2022-05-20 23:10:20.938636163
 #  File has been updated.
 #  Successfully updated.
+
+# Not a target:
+src/object/bullet.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+src/engine/end.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+bin/utils/imageProcess.o: src/utils/imageProcess.cpp
+#  Implicit rule search has not been done.
+#  Last modified 2022-05-20 23:05:46.434024606
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 34):
+	mkdir -p bin/utils
+	g++ $^ -c -o $@ $(CPP_FLAGS) -I$(INCLUDE_PATH) $(ALLEGRO_OPTIONS)
+
+bin/object/bullet.o: src/object/bullet.cpp
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 58):
+	mkdir -p bin/object
+	g++ $^ -c -o $@ $(CPP_FLAGS) -I$(INCLUDE_PATH) $(ALLEGRO_OPTIONS)
+
+bin/engine/end.o: src/engine/end.cpp
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 50):
+	mkdir -p bin/engine
+	g++ $^ -c -o $@ $(CPP_FLAGS) -I$(INCLUDE_PATH) $(ALLEGRO_OPTIONS)
 
 # Not a target:
 .DEFAULT:
@@ -369,59 +495,81 @@ Makefile:
 #  Modification time never checked.
 #  File has not been updated.
 
-# Not a target:
-src/engine/game.cpp:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-19 12:11:40.380636648
-#  File has been updated.
-#  Successfully updated.
-
 clean:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 11):
+#  recipe to execute (from 'Makefile', line 20):
 	rm -rf bin/
-	rm source.out
+	rm hw.out
+	
 
 # Not a target:
 src/main.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-19 12:01:11.771483903
+#  Last modified 2022-05-20 22:40:37.998511422
 #  File has been updated.
 #  Successfully updated.
 
-bin/engine/game.o: src/engine/game.cpp
+bin/main: src/main.cpp bin/utils/log.o bin/utils/imageProcess.o bin/engine/scene.o bin/engine/menu.o bin/engine/mainGame.o bin/engine/end.o bin/object/player.o bin/object/bullet.o bin/object/asteroid.o bin/object/potion.o
 #  Implicit rule search has not been done.
-#  Last modified 2022-05-19 12:11:47.060648026
+#  Last modified 2022-05-20 23:20:45.680065305
 #  File has been updated.
-#  Successfully updated.
-#  recipe to execute (from 'Makefile', line 23):
-	mkdir -p bin/engine
-	g++ $^ -c -o $@ $(CPP_FLAGS) -I$(INCLUDE_PATH) $(ALLEGRO_OPTIONS)
-
-bin/main: src/main.cpp bin/utils/log.o bin/engine/game.o
-#  Implicit rule search has not been done.
-#  Last modified 2022-05-19 12:11:47.108648107
-#  File has been updated.
-#  Successfully updated.
-#  recipe to execute (from 'Makefile', line 16):
+#  Needs to be updated (-q is set).
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/6=0%
+#  recipe to execute (from 'Makefile', line 27):
 	g++ $^ -o $@ $(CPP_FLAGS) -I$(INCLUDE_PATH) $(ALLEGRO_OPTIONS)
 
+# Not a target:
+src/object/potion.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+src/object/asteroid.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+src/engine/scene.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-19 18:50:15.572438254
+#  File has been updated.
+#  Successfully updated.
+
+bin/object/potion.o: src/object/potion.cpp
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 66):
+	mkdir -p bin/object
+	g++ $^ -c -o $@ $(CPP_FLAGS) -I$(INCLUDE_PATH) $(ALLEGRO_OPTIONS)
+
+bin/object/asteroid.o: src/object/asteroid.cpp
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 62):
+	mkdir -p bin/object
+	g++ $^ -c -o $@ $(CPP_FLAGS) -I$(INCLUDE_PATH) $(ALLEGRO_OPTIONS)
+
 # files hash-table stats:
-# Load=12/1024=1%, Rehash=0, Collisions=1/32=3%
+# Load=28/1024=3%, Rehash=0, Collisions=1/73=1%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 24 / storage = 235 B / avg = 9 B
-# current buf: size = 8162 B / used = 235 B / count = 24 / avg = 9 B
+# strcache buffers: 1 (0) / strings = 41 / storage = 587 B / avg = 14 B
+# current buf: size = 8162 B / used = 587 B / count = 41 / avg = 14 B
 
-# strcache performance: lookups = 38 / hit rate = 36%
+# strcache performance: lookups = 72 / hit rate = 43%
 # hash-table stats:
-# Load=24/8192=0%, Rehash=0, Collisions=2/38=5%
-# Finished Make data base on Thu May 19 12:15:49 2022
+# Load=41/8192=1%, Rehash=0, Collisions=1/72=1%
+# Finished Make data base on Sun May 22 22:31:55 2022
 
  

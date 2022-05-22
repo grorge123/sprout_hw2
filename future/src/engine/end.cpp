@@ -21,6 +21,7 @@ void End::draw(void){
 	al_draw_rectangle(left_space, upper_space,
 					left_space + space_width, upper_space + space_height,
 					al_map_rgb(255, 255, 255), 0);
+	// draw info message
 	std::string win_message = "Win the game";
 	if(this->winner == 1){
 		win_message = "Player 1 " + win_message;
@@ -38,11 +39,12 @@ void End::draw(void){
 void End::destroy(void){
 	al_destroy_font(this->font);
 }
-
+// release resource
 End::~End(void){
 	this->destroy();
 }
 void End::update(void) {
+	// check keyboard status
 	if(key_state[ALLEGRO_KEY_ESCAPE]){
 		this->finish = true;
 		this->done = true;
