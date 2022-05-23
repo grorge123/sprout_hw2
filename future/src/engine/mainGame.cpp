@@ -213,7 +213,7 @@ void MainGame::update(void) {
 		this->P2->bullet_cool = 5;
 		this->P2->energy -= 20;
 		ALLEGRO_BITMAP *tmp = al_clone_bitmap(this->bullet_img);
-		Object *bullet = new Bullet(this->P2->x + 1, this->P2->y + 3, 0, 1, tmp, 1);
+		Object *bullet = new Bullet(this->P2->x + 1, this->P2->y + 3, 0, 1, tmp, 2);
 		this->object_list.push_back(bullet);
 	}
 
@@ -239,7 +239,6 @@ void MainGame::update(void) {
 	if(rand() % 600 == 0){
 		int type = rand() % 3;
 		std::string path = "./image/potion" + intToChar(type) + ".png";
-		std::cout << "POTION:" << ' ' << path << std::endl;
 		Object *potion = new Potion(rand() % width, rand() % height, 0, 0, path.c_str(), scale, scale * 2, type);
 		this->object_list.push_back(potion);
 	}
@@ -268,7 +267,7 @@ void MainGame::update(void) {
 				// decrease player hp by bullet power
 				if(bu->type == 1){
 					py->hp -= this->P2->bullet_power;
-				}else{
+				}else if(bu->type == 2){
 					py->hp -= this->P1->bullet_power;
 				}
 				// erase bullet
@@ -285,9 +284,9 @@ void MainGame::update(void) {
 				auto bu = dynamic_cast<Bullet*> (*from);
 				// add player experience
 				if(bu->type == 1){
-					this->P1->exp++;
-				}else{
-					this->P2->exp++;
+					this->P1->exp += 20;
+				}else if(bu->type == 2){
+					this->P2->exp += 20;
 				}
 				// erase from(bullet)
 				flag = 1;
@@ -308,11 +307,19 @@ void MainGame::update(void) {
 				}
 				// erase potion
 				to = this->object_list.erase(to);
-			}else{
-				// other object collide will erase each other
+			}else if(dynamic_cast<Bullet*> (*from) && dynamic_cast<Bullet*> (*to)){
+				// bullet collide bullet
 				flag = 1;
 				to = this->object_list.erase(to);
 				break;
+			}else if(dynamic_cast<Asteroid*> (*from) && dynamic_cast<Asteroid*> (*to)){
+				// asteroid collide asteroid
+				flag = 1;
+				to = this->object_list.erase(to);
+				break;
+			}else{
+				// other object collide will skip
+				to++;
 			}
 		}
 		if(flag){

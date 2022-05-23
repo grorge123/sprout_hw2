@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sun May 22 22:31:55 2022
+# Make data base, printed on Mon May 23 17:10:09 2022
 
 # Variables
 
@@ -51,7 +51,7 @@ VTE_VERSION = 6003
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en","availableLanguages":{},"_languagePackSupport":true}
 # environment
-JOURNAL_STREAM = 8:46405
+JOURNAL_STREAM = 8:46679
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # environment
@@ -77,13 +77,13 @@ DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-MANAGERPID = 2164
+MANAGERPID = 1921
 # environment
 P9K_SSH = 0
 # environment
 CLUTTER_IM_MODULE = fcitx
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-28289d47-68cc-4ef9-be86-7b343dc60f5c.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-e3dde30f-acb2-4a52-9153-14673978862f.sock
 # environment
 LC_NAME = lzh_TW
 # environment
@@ -97,7 +97,7 @@ PATH = /home/grorge/.local/share/zinit/plugins/paulirish---git-open:/home/grorge
 # environment
 GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
-SESSION_MANAGER = local/grorge-System-Product-Name:@/tmp/.ICE-unix/2567,unix/grorge-System-Product-Name:/tmp/.ICE-unix/2567
+SESSION_MANAGER = local/grorge-System-Product-Name:@/tmp/.ICE-unix/2322,unix/grorge-System-Product-Name:/tmp/.ICE-unix/2322
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
@@ -123,7 +123,7 @@ ELECTRON_RUN_AS_NODE = 1
 # environment
 PYENV_ROOT = /home/grorge/.pyenv
 # environment
-INVOCATION_ID = 6120f2b5b7134d2b8b52ec47c38f6323
+INVOCATION_ID = 3e8b726b496344f3990542f8c7b3a19e
 # environment
 GDK_PIXBUF_MODULEDIR = /snap/code/97/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
 # default
@@ -149,7 +149,7 @@ PWD = /home/grorge/Desktop/sprout/sprout_hw2/future
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 2523
+SSH_AGENT_PID = 2279
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
@@ -273,11 +273,11 @@ QT4_IM_MODULE = fcitx
 # environment
 P9K_TTY = old
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/54372aea_810e_4e59_bc1c_8d3cb4c1bb83
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/c6421ee5_5bcc_4ea1_8c93_41b2415d3fb8
 # automatic
 ^F = $(notdir $^)
 # environment
-GNOME_TERMINAL_SERVICE = :1.97
+GNOME_TERMINAL_SERVICE = :1.88
 # default
 SUFFIXES := 
 # environment
@@ -303,7 +303,7 @@ TERM = xterm-256color
 # environment
 _P9K_TTY = /dev/pts/0
 # environment
-VSCODE_PID = 6970
+VSCODE_PID = 5504
 # makefile (from 'Makefile', line 2)
 CPP_FLAGS = -Wall -Wextra -std=c++17
 # variable set hash-table stats:
@@ -336,7 +336,7 @@ source:
 # Not a target:
 src/engine/menu.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-20 16:41:28.973884629
+#  Last modified 2022-05-22 22:46:49.242133315
 #  File has been updated.
 #  Successfully updated.
 
@@ -373,7 +373,7 @@ all: bin/main
 
 bin/engine/menu.o: src/engine/menu.cpp
 #  Implicit rule search has not been done.
-#  Last modified 2022-05-20 23:05:46.482024711
+#  Last modified 2022-05-22 23:05:38.892120171
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'Makefile', line 46):
@@ -400,7 +400,7 @@ bin/utils/log.o: src/utils/log.cpp
 # Not a target:
 src/engine/mainGame.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-20 23:21:29.832167361
+#  Last modified 2022-05-22 23:30:51.017460556
 #  File has been updated.
 #  Successfully updated.
 
@@ -420,7 +420,7 @@ src/utils/imageProcess.cpp:
 bin/engine/mainGame.o: src/engine/mainGame.cpp
 #  Implicit rule search has not been done.
 #  Implicit/static pattern stem: ''
-#  Last modified 2022-05-20 23:18:51.063800827
+#  Last modified 2022-05-22 23:28:21.461174823
 #  File has been updated.
 #  Needs to be updated (-q is set).
 # automatic
@@ -507,13 +507,13 @@ clean:
 # Not a target:
 src/main.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-20 22:40:37.998511422
+#  Last modified 2022-05-22 22:45:48.418097637
 #  File has been updated.
 #  Successfully updated.
 
 bin/main: src/main.cpp bin/utils/log.o bin/utils/imageProcess.o bin/engine/scene.o bin/engine/menu.o bin/engine/mainGame.o bin/engine/end.o bin/object/player.o bin/object/bullet.o bin/object/asteroid.o bin/object/potion.o
 #  Implicit rule search has not been done.
-#  Last modified 2022-05-20 23:20:45.680065305
+#  Last modified 2022-05-22 23:28:21.617175131
 #  File has been updated.
 #  Needs to be updated (-q is set).
 # variable set hash-table stats:
@@ -570,6 +570,6 @@ bin/object/asteroid.o: src/object/asteroid.cpp
 # strcache performance: lookups = 72 / hit rate = 43%
 # hash-table stats:
 # Load=41/8192=1%, Rehash=0, Collisions=1/72=1%
-# Finished Make data base on Sun May 22 22:31:55 2022
+# Finished Make data base on Mon May 23 17:10:09 2022
 
  
